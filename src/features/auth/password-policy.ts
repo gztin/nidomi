@@ -1,0 +1,2 @@
+export const MIN_PASSWORD_LENGTH = 6;
+export const MIN_PASSWORD_LENGTH_LABEL = `至少 ${MIN_PASSWORD_LENGTH} 個字元`;

@@ -1,0 +1,13 @@
+node_modules
+.next
+.open-next
+.wrangler
+test-results
+playwright-report
+coverage
+.dev.vars
+.env*
+!.dev.vars.example
+
+.pnpm-store
+tsconfig.tsbuildinfo
