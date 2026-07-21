@@ -9,8 +9,6 @@ export function RegistrationForm() {
   const dialog = useRef<HTMLDialogElement>(null);
   const [active, setActive] = useState<PolicyKey>("terms");
   const [progress, setProgress] = useState(0);
-  const [read, setRead] = useState<Record<PolicyKey, boolean>>({ terms: false, privacy: false, member: false });
-  const all = Object.values(read).every(Boolean);
   const policy = policyDocuments[active];
 
   function open(key: PolicyKey) {
@@ -30,23 +28,19 @@ export function RegistrationForm() {
             id="register-consent"
             name="consent"
             type="checkbox"
-            disabled={!all}
             required
-            aria-label="已閱讀服務條款跟隱私權政策，註冊視為同意遵守會員規則"
+            aria-label="我同意服務條款、隱私權政策與會員規則"
           />
           <p>
-            <span>已閱讀</span>
+            <span>我同意</span>
             <button type="button" onClick={() => open("terms")}>服務條款</button>
-            <span>跟</span>
+            <span>、</span>
             <button type="button" onClick={() => open("privacy")}>隱私權政策</button>
-            <span>，註冊視為同意遵守</span>
+            <span>與</span>
             <button type="button" onClick={() => open("member")}>會員規則</button>
           </p>
         </div>
-        {(Object.keys(policyDocuments) as PolicyKey[]).map((key) => (
-          <input type="hidden" name={`read_${key}`} value={read[key] ? policyDocuments[key].version : ""} key={key} />
-        ))}
-        <button className="button button-primary" type="submit" disabled={!all}>註冊並驗證 Email</button>
+        <button className="button button-primary" type="submit">註冊並驗證 Email</button>
       </form>
       <dialog className="policy-reading-dialog" ref={dialog}>
         <header className="policy-reading-header">
@@ -61,11 +55,8 @@ export function RegistrationForm() {
           <PolicyContent markdown={policy.markdown} />
         </div>
         <footer className="policy-reading-footer">
-          <span>{progress < 100 ? "請繼續閱讀至文件底部" : "已閱讀至文件底部"}</span>
-          <button className="button button-primary" disabled={progress < 100} onClick={() => {
-            setRead((value) => ({ ...value, [active]: true }));
-            dialog.current?.close();
-          }}>我已閱讀</button>
+          <span>文件閱讀為選填，註冊時仍須勾選同意</span>
+          <button className="button button-primary" type="button" onClick={() => dialog.current?.close()}>關閉</button>
         </footer>
       </dialog>
     </>
