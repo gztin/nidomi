@@ -1,2 +1,0 @@
-import Link from "next/link";import { PolicyContent } from "@/components/policy/policy-content";import { policyDocuments } from "@/content/policies.generated";
-export default function PrivacyPage(){const p=policyDocuments.privacy;return <main className="policy-page policy-page-full"><Link className="policy-back" href="/register">← 返回註冊</Link><p className="eyebrow">版本 {p.version}</p><PolicyContent markdown={p.markdown}/></main>}

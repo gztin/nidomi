@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="nidomi 房源資訊：採光一房一廳，步行可達捷運。">
+  <title>出租房源 - nidomi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@600;700&amp;family=Manrope:wght@400;600;700;800&amp;family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,400,0,0" rel="stylesheet">
+  <style>
+    :root {
+      --background: #f7faf5;
+      --surface: #fbfdf9;
+      --surface-low: #f1f4f0;
+      --surface-high: #e6e9e4;
+      --ink: #191c1a;
+      --ink-muted: #414844;
+      --ink-soft: #646a66;
+      --primary: #012d1d;
+      --primary-container: #1b4332;
+      --primary-fixed: #c1ecd4;
+      --outline: #717973;
+      --outline-soft: #c1c8c2;
+      --shadow-card: 0 20px 40px rgba(25, 28, 26, .08);
+      --shadow-soft: 0 10px 30px rgba(25, 28, 26, .045);
+      --radius: 12px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--background);
+      color: var(--ink);
+      font-family: "Manrope", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      font-size: 16px;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    button { font: inherit; }
+    :focus-visible { outline: 3px solid rgba(1, 45, 29, .3); outline-offset: 3px; }
+    .material-symbols-outlined { font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24; font-size: 20px; line-height: 1; }
+
+    .page-width { width: min(1280px, calc(100% - 40px)); margin-inline: auto; }
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid rgba(193, 200, 194, .56);
+      background: rgba(247, 250, 245, .94);
+      backdrop-filter: blur(16px);
+    }
+    .nav-bar { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 32px; }
+    .brand { color: var(--primary); font-family: "Hanken Grotesk", sans-serif; font-size: 1.45rem; font-weight: 700; letter-spacing: -.055em; text-decoration: none; }
+    .nav-links { display: flex; align-items: center; gap: 32px; color: var(--ink-muted); font-size: .92rem; font-weight: 600; }
+    .nav-links a { padding: 27px 0 24px; text-decoration: none; transition: color .2s ease, border-color .2s ease; }
+    .nav-links a:hover, .nav-links a[aria-current="page"] { color: var(--primary); }
+    .nav-links a[aria-current="page"] { border-bottom: 2px solid var(--primary); }
+    .nav-login { border: 0; background: transparent; padding: 10px 14px; color: var(--primary); font-family: "Hanken Grotesk", sans-serif; font-weight: 600; cursor: pointer; text-decoration: none; }
+    .nav-login:hover { background: var(--surface-high); border-radius: 6px; }
+
+    main { padding: 32px 0 80px; }
+    .hero-layout { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px; margin-bottom: 80px; }
+    .visual-column { grid-column: span 8; display: flex; flex-direction: column; gap: 8px; }
+    .main-photo { position: relative; aspect-ratio: 16 / 10; overflow: hidden; border-radius: 12px; background: var(--surface-high); }
+    .main-photo img { width: 100%; height: 100%; object-fit: cover; transition: transform .7s cubic-bezier(.2, .7, .2, 1); }
+    .main-photo:hover img { transform: scale(1.035); }
+    .photo-overlay { position: absolute; inset: auto 0 0; display: flex; align-items: flex-end; padding: 22px; background: linear-gradient(to top, rgba(1, 20, 13, .5), rgba(1, 20, 13, 0)); }
+    .verified-pill { display: inline-flex; align-items: center; gap: 5px; border-radius: 999px; background: rgba(251, 253, 249, .92); padding: 7px 12px; color: var(--primary); font-family: "Hanken Grotesk", sans-serif; font-size: .82rem; font-weight: 600; }
+    .verified-pill .material-symbols-outlined { font-size: 17px; }
+    .thumbnail-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+    .thumbnail { position: relative; aspect-ratio: 1; overflow: hidden; border-radius: 8px; background: var(--surface-high); }
+    .thumbnail img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+    .thumbnail:hover img { transform: scale(1.06); }
+    .thumbnail:last-child::after { position: absolute; inset: 0; display: grid; place-items: center; background: rgba(1, 20, 13, .38); color: #fbfdf9; content: "+12  圖片"; font-family: "Hanken Grotesk", sans-serif; font-size: .82rem; font-weight: 600; }
+
+    .overview-column { position: relative; grid-column: span 4; }
+    .overview-card { position: sticky; top: 100px; display: flex; flex-direction: column; gap: 24px; border: 1px solid rgba(193, 200, 194, .4); border-radius: 12px; background: var(--surface); padding: 32px; box-shadow: var(--shadow-card); }
+    .overview-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+    .overview-heading h1 { margin: 0; color: var(--ink); font-size: clamp(1.55rem, 2.2vw, 2.05rem); line-height: 1.25; letter-spacing: -.045em; }
+    .favorite { display: grid; flex: 0 0 auto; width: 36px; height: 36px; place-items: center; border: 0; background: transparent; color: var(--ink-muted); cursor: pointer; }
+    .favorite:hover { color: var(--primary); }
+    .favorite.is-bookmarked { color: var(--primary); }
+    .favorite.is-bookmarked .material-symbols-outlined { font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 24; }
+    .location { display: flex; align-items: center; gap: 5px; margin: 11px 0 18px; color: var(--ink-muted); font-size: .92rem; }
+    .location .material-symbols-outlined { font-size: 19px; }
+    .price { display: flex; align-items: baseline; gap: 7px; margin: 0; color: var(--primary); }
+    .price strong { font-size: clamp(2rem, 3.5vw, 2.8rem); line-height: 1; letter-spacing: -.07em; }
+    .price span { color: var(--ink-muted); font-size: .95rem; }
+    .divider { width: 100%; height: 1px; background: rgba(193, 200, 194, .66); }
+    .summary-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 19px 16px; }
+    .summary-item { display: flex; flex-direction: column; gap: 2px; }
+    .summary-item small { color: var(--ink-muted); font-size: .75rem; }
+    .summary-item strong { font-family: "Hanken Grotesk", sans-serif; font-size: .9rem; font-weight: 600; }
+    .button { display: inline-flex; width: 100%; min-height: 50px; align-items: center; justify-content: center; gap: 8px; border-radius: 8px; padding: 13px 18px; font-family: "Hanken Grotesk", sans-serif; font-size: .9rem; font-weight: 600; text-decoration: none; transition: background .2s ease, color .2s ease, transform .2s ease; }
+    .button:hover { transform: translateY(-1px); }
+    .button-primary { border: 1px solid var(--primary); background: var(--primary); color: #fbfdf9; box-shadow: 0 4px 12px rgba(1, 45, 29, .12); }
+    .button-primary:hover { background: var(--primary-container); }
+    .button-outline { border: 1px solid var(--primary); background: transparent; color: var(--primary); }
+    .button-outline:hover { background: var(--surface-low); }
+    .static-note { margin: -10px 0 0; color: var(--ink-soft); font-size: .76rem; text-align: center; }
+
+    .details-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; margin-bottom: 80px; }
+    .info-card { border: 1px solid rgba(193, 200, 194, .35); border-radius: 12px; background: var(--surface); padding: 32px; box-shadow: var(--shadow-soft); }
+    .info-card h2 { display: flex; align-items: center; gap: 9px; margin: 0 0 24px; color: var(--ink); font-size: 1.48rem; line-height: 1.3; letter-spacing: -.045em; }
+    .info-card h2 .material-symbols-outlined { color: var(--primary); }
+    .fee-list { display: flex; flex-direction: column; gap: 0; margin: 0; }
+    .fee-row { display: flex; align-items: center; justify-content: space-between; gap: 18px; border-bottom: 1px solid rgba(193, 200, 194, .42); padding: 13px 0; }
+    .fee-row:last-child { border-bottom: 0; padding-bottom: 0; }
+    .fee-row dt { color: var(--ink-muted); font-size: .9rem; }
+    .fee-row dd { margin: 0; color: var(--ink); font-family: "Hanken Grotesk", sans-serif; font-size: .9rem; font-weight: 600; text-align: right; }
+    .fee-row dd small { display: block; color: var(--ink-soft); font-family: "Manrope", sans-serif; font-size: .7rem; font-weight: 400; }
+    .amenity-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .amenity { display: flex; align-items: center; gap: 10px; min-height: 48px; border: 1px solid rgba(193, 200, 194, .46); border-radius: 999px; background: var(--background); padding: 10px 14px; color: var(--ink); font-family: "Hanken Grotesk", sans-serif; font-size: .82rem; font-weight: 600; }
+    .amenity .material-symbols-outlined { color: var(--primary); font-size: 19px; }
+    .amenity.is-muted { color: var(--ink-soft); text-decoration: line-through; }
+    .amenity.is-muted .material-symbols-outlined { color: var(--outline); }
+    .conditions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+    .condition { border-radius: 999px; background: var(--primary-fixed); padding: 6px 11px; color: var(--primary); font-size: .76rem; font-weight: 700; }
+
+    .trust-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 80px; border-top: 1px solid rgba(193, 200, 194, .55); border-bottom: 1px solid rgba(193, 200, 194, .55); padding: 24px 0; }
+    .trust-item { display: flex; align-items: center; gap: 12px; color: var(--ink-muted); font-size: .83rem; }
+    .trust-item + .trust-item { border-left: 1px solid rgba(193, 200, 194, .55); padding-left: 24px; }
+    .trust-icon { display: grid; flex: 0 0 auto; width: 30px; height: 30px; place-items: center; border-radius: 50%; background: var(--primary-fixed); color: var(--primary); }
+    .trust-item strong { display: block; color: var(--ink); font-family: "Hanken Grotesk", sans-serif; font-size: .84rem; font-weight: 600; }
+    .trust-item span { display: block; color: var(--ink-soft); font-size: .73rem; }
+
+    .site-footer { display: flex; align-items: flex-start; justify-content: space-between; gap: 32px; border-top: 1px solid var(--outline-soft); padding: 48px max(20px, calc((100vw - 1280px) / 2)) 52px; }
+    .footer-copy { display: flex; flex-direction: column; gap: 12px; }
+    .footer-copy p { max-width: 380px; margin: 0; color: var(--ink-soft); font-size: .76rem; }
+    .footer-links { display: flex; gap: 24px; color: var(--ink-muted); font-size: .76rem; }
+    .footer-links a { text-decoration: none; }
+    .footer-links a:hover { color: var(--primary); text-decoration: underline; }
+
+    @media (max-width: 900px) {
+      .hero-layout { grid-template-columns: 1fr; }
+      .visual-column, .overview-column { grid-column: auto; }
+      .overview-card { position: static; }
+      .overview-heading h1 { font-size: 2rem; }
+    }
+    @media (max-width: 720px) {
+      .page-width { width: min(100% - 32px, 620px); }
+      .nav-bar { min-height: 66px; }
+      .nav-links { display: none; }
+      .nav-login { padding-right: 0; }
+      main { padding-top: 20px; }
+      .hero-layout, .details-grid { gap: 16px; margin-bottom: 52px; }
+      .overview-card, .info-card { padding: 24px; }
+      .trust-row { grid-template-columns: 1fr; gap: 16px; margin-bottom: 52px; }
+      .trust-item + .trust-item { border-left: 0; border-top: 1px solid rgba(193, 200, 194, .55); padding: 16px 0 0; }
+      .site-footer { flex-direction: column; padding: 36px 16px 42px; }
+      .footer-links { flex-wrap: wrap; gap: 12px 20px; }
+    }
+    @media (max-width: 480px) {
+      .thumbnail-grid { grid-template-columns: repeat(2, 1fr); }
+      .amenity-grid { grid-template-columns: 1fr; }
+      .fee-row { align-items: flex-start; flex-direction: column; gap: 3px; }
+      .fee-row dd { text-align: left; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="page-width nav-bar" aria-label="主要導覽">
+      <a class="brand" href="#top">nidomi</a>
+      <div class="nav-links">
+        <a href="#fees">費用</a>
+        <a href="#facilities">設備與條件</a>
+        <a href="#booking" aria-current="page">約看</a>
+      </div>
+      <a class="nav-login" href="mailto:nidomi.service@gmail.com?subject=詢問 nidomi 房源">聯絡 nidomi</a>
+    </nav>
+  </header>
+
+  <main id="top" class="page-width">
+    <section class="hero-layout" aria-labelledby="property-title">
+      <div class="visual-column">
+        <div class="main-photo">
+          <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&amp;fit=crop&amp;w=1500&amp;q=88" alt="明亮客廳與自然採光" loading="eager">
+          <div class="photo-overlay"><span class="verified-pill"><span class="material-symbols-outlined" aria-hidden="true">verified</span> 已驗證房源</span></div>
+        </div>
+        <div class="thumbnail-grid" aria-label="房源照片縮圖">
+          <div class="thumbnail"><img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&amp;fit=crop&amp;w=700&amp;q=84" alt="臥室與雙人床" loading="lazy"></div>
+          <div class="thumbnail"><img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&amp;fit=crop&amp;w=700&amp;q=84" alt="簡潔浴室空間" loading="lazy"></div>
+          <div class="thumbnail"><img src="https://images.unsplash.com/photo-1556912173-3bb406ef7e77?auto=format&amp;fit=crop&amp;w=700&amp;q=84" alt="可開伙的廚房" loading="lazy"></div>
+          <div class="thumbnail"><img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&amp;fit=crop&amp;w=700&amp;q=84" alt="客廳另一側視角" loading="lazy"></div>
+        </div>
+      </div>
+
+      <aside class="overview-column" aria-label="房源摘要">
+        <div class="overview-card">
+          <div>
+            <div class="overview-heading">
+              <h1 id="property-title">採光一房一廳，步行可達捷運</h1>
+              <button class="favorite" id="favorite-button" type="button" aria-label="加入書籤" aria-pressed="false"><span class="material-symbols-outlined" id="favorite-icon" aria-hidden="true">favorite_border</span></button>
+            </div>
+            <p class="location"><span class="material-symbols-outlined" aria-hidden="true">location_on</span>桃園市・桃園區・桃園夜市附近</p>
+            <p class="price"><strong>NT$ 25,000</strong><span>／月</span></p>
+          </div>
+          <div class="divider" aria-hidden="true"></div>
+          <div class="summary-grid">
+            <div class="summary-item"><small>類型</small><strong>公寓</strong></div>
+            <div class="summary-item"><small>格局</small><strong>2 房 2 廳 1 衛</strong></div>
+            <div class="summary-item"><small>坪數</small><strong>22.77 坪</strong></div>
+            <div class="summary-item"><small>樓層</small><strong>5 樓／共 5 樓</strong></div>
+            <div class="summary-item"><small>可入住</small><strong>2026 年 9 月</strong></div>
+            <div class="summary-item"><small>最短租期</small><strong>12 個月</strong></div>
+          </div>
+          <a class="button button-primary" id="booking" href="mailto:nidomi.service@gmail.com?subject=詢問看房：採光一房一廳"><span class="material-symbols-outlined" aria-hidden="true">calendar_today</span> 約看（Book Viewing）</a>
+          <a class="button button-outline" href="mailto:nidomi.service@gmail.com?subject=詢問房源：採光一房一廳"><span class="material-symbols-outlined" aria-hidden="true">chat_bubble_outline</span> 聯絡房源提供者</a>
+          <p class="static-note">目前為靜態展示頁，寄信後由提供者回覆確認。</p>
+        </div>
+      </aside>
+    </section>
+
+    <section class="details-grid" aria-label="費用與設備資訊">
+      <article class="info-card" id="fees">
+        <h2><span class="material-symbols-outlined" aria-hidden="true">payments</span>費用（Fees &amp; Terms）</h2>
+        <dl class="fee-list">
+          <div class="fee-row"><dt>押金</dt><dd>一個月租金</dd></div>
+          <div class="fee-row"><dt>水費</dt><dd>依自來水帳單<small>每期提供帳單資訊</small></dd></div>
+          <div class="fee-row"><dt>電費</dt><dd>依台電帳單<small>獨立電表</small></dd></div>
+          <div class="fee-row"><dt>網路</dt><dd>已含租金</dd></div>
+          <div class="fee-row"><dt>最短租期</dt><dd>1 年</dd></div>
+        </dl>
+      </article>
+
+      <article class="info-card" id="facilities">
+        <h2><span class="material-symbols-outlined" aria-hidden="true">chair</span>設備與條件（Facilities &amp; Rules）</h2>
+        <div class="amenity-grid">
+          <div class="amenity"><span class="material-symbols-outlined" aria-hidden="true">ac_unit</span>冷氣 2 台</div>
+          <div class="amenity"><span class="material-symbols-outlined" aria-hidden="true">local_laundry_service</span>洗衣機</div>
+          <div class="amenity"><span class="material-symbols-outlined" aria-hidden="true">kitchen</span>冰箱</div>
+          <div class="amenity"><span class="material-symbols-outlined" aria-hidden="true">bed</span>雙人床</div>
+          <div class="amenity is-muted"><span class="material-symbols-outlined" aria-hidden="true">smoking_rooms</span>室內禁菸</div>
+          <div class="amenity is-muted"><span class="material-symbols-outlined" aria-hidden="true">directions_car</span>無車位</div>
+        </div>
+        <div class="conditions" aria-label="租屋條件"><span class="condition">可開伙</span><span class="condition">最多 2 人</span><span class="condition">寵物需先討論</span><span class="condition">可申請租金補貼</span></div>
+      </article>
+    </section>
+
+    <section class="trust-row" aria-label="房源驗證狀態">
+      <div class="trust-item"><span class="trust-icon material-symbols-outlined" aria-hidden="true">verified</span><div><strong>資料已審核</strong><span>房源刊登內容已完成檢查</span></div></div>
+      <div class="trust-item"><span class="trust-icon material-symbols-outlined" aria-hidden="true">fact_check</span><div><strong>出租權利已確認</strong><span>提供者已完成必要驗證</span></div></div>
+      <div class="trust-item"><span class="trust-icon material-symbols-outlined" aria-hidden="true">workspace_premium</span><div><strong>專業資格會員</strong><span>林先生・金色認證標章</span></div></div>
+    </section>
+  </main>
+
+  <script>
+    const favoriteButton = document.getElementById("favorite-button");
+    const favoriteIcon = document.getElementById("favorite-icon");
+    const favoriteStorageKey = "nidomi:property-bookmarked";
+
+    const setBookmarked = (bookmarked) => {
+      favoriteButton.classList.toggle("is-bookmarked", bookmarked);
+      favoriteButton.setAttribute("aria-pressed", String(bookmarked));
+      favoriteButton.setAttribute("aria-label", bookmarked ? "移除書籤" : "加入書籤");
+      favoriteIcon.textContent = bookmarked ? "favorite" : "favorite_border";
+    };
+
+    let isBookmarked = false;
+    try {
+      isBookmarked = localStorage.getItem(favoriteStorageKey) === "true";
+    } catch (error) {
+      // 收藏功能仍可在目前頁面中使用，即使瀏覽器停用儲存功能。
+    }
+
+    setBookmarked(isBookmarked);
+    favoriteButton.addEventListener("click", () => {
+      isBookmarked = !isBookmarked;
+      setBookmarked(isBookmarked);
+      try {
+        localStorage.setItem(favoriteStorageKey, String(isBookmarked));
+      } catch (error) {
+        // 不阻止愛心狀態切換。
+      }
+    });
+  </script>
+
+  <footer class="site-footer">
+    <div class="footer-copy"><a class="brand" href="#top">nidomi</a><p>讓房源資訊與約看流程更透明。</p></div>
+    <nav class="footer-links" aria-label="頁尾導覽"><a href="#fees">服務條款</a><a href="#facilities">隱私權政策</a><a href="mailto:nidomi.service@gmail.com">會員規則</a></nav>
+  </footer>
+</body>
+</html>

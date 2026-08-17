@@ -1,7 +1,0 @@
-APP_URL=http://127.0.0.1:3000
-EMAIL_MODE=local
-EMAIL_FROM=nidomi <no-reply@fomoguys.com>
-RESEND_API_KEY=re_your_api_key
-SETTINGS_ENCRYPTION_KEY=replace_with_a_long_random_secret
-IDENTITY_DATA_ENCRYPTION_KEY=replace_with_32_random_bytes_encoded_as_base64
-IDENTITY_LOOKUP_HMAC_KEY=replace_with_another_32_random_bytes_encoded_as_base64
