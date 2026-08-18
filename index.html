@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="nidomi 房源資訊：採光一房一廳，步行可達捷運。">
-  <title>出租房源 - nidomi</title>
+  <meta name="description" content="nidomi 房源資訊：民生好室，採光一房一廳，步行可達捷運。">
+  <title>民生好室｜出租房源 - nidomi</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@600;700&amp;family=Manrope:wght@400;600;700;800&amp;family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,400,0,0" rel="stylesheet">
@@ -64,36 +64,60 @@
     .nav-login:hover { background: var(--surface-high); border-radius: 6px; }
 
     main { padding: 32px 0 80px; }
-    .hero-layout { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px; margin-bottom: 80px; }
-    .visual-column { grid-column: span 8; display: flex; flex-direction: column; gap: 8px; }
-    .main-photo { position: relative; aspect-ratio: 16 / 10; overflow: hidden; border-radius: 12px; background: var(--surface-high); }
+    .listing-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(320px, 381px); gap: 24px; align-items: start; }
+    .listing-main { min-width: 0; }
+    .hero-layout { margin-bottom: 80px; }
+    .visual-column { display: grid; grid-template-columns: minmax(0, 2fr) minmax(220px, 1fr); grid-template-rows: repeat(2, minmax(0, 1fr)); gap: 8px; align-items: stretch; aspect-ratio: 16 / 9; }
+    [hidden] { display: none !important; }
+    .main-photo { position: relative; display: block; grid-column: 1; grid-row: 1 / span 2; width: 100%; height: 100%; overflow: hidden; border: 0; border-radius: 12px; background: var(--surface-high); padding: 0; color: inherit; cursor: zoom-in; text-align: left; }
     .main-photo img { width: 100%; height: 100%; object-fit: cover; transition: transform .7s cubic-bezier(.2, .7, .2, 1); }
     .main-photo:hover img { transform: scale(1.035); }
-    .photo-overlay { position: absolute; inset: auto 0 0; display: flex; align-items: flex-end; padding: 22px; background: linear-gradient(to top, rgba(1, 20, 13, .5), rgba(1, 20, 13, 0)); }
+    .photo-overlay { position: absolute; inset: auto 0 0; display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; padding: 22px; background: linear-gradient(to top, rgba(1, 20, 13, .5), rgba(1, 20, 13, 0)); pointer-events: none; }
     .verified-pill { display: inline-flex; align-items: center; gap: 5px; border-radius: 999px; background: rgba(251, 253, 249, .92); padding: 7px 12px; color: var(--primary); font-family: "Hanken Grotesk", sans-serif; font-size: .82rem; font-weight: 600; }
     .verified-pill .material-symbols-outlined { font-size: 17px; }
-    .thumbnail-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
-    .thumbnail { position: relative; aspect-ratio: 1; overflow: hidden; border-radius: 8px; background: var(--surface-high); }
+    .gallery-count { color: #fbfdf9; font-family: "Hanken Grotesk", sans-serif; font-size: .82rem; font-weight: 600; }
+    .photo-view-hint { position: absolute; top: 18px; right: 18px; display: inline-flex; align-items: center; gap: 6px; border-radius: 999px; background: rgba(1, 20, 13, .7); padding: 8px 12px; color: #fbfdf9; font-size: .78rem; font-weight: 700; opacity: 0; transition: opacity .2s ease; pointer-events: none; }
+    .main-photo:hover .photo-view-hint, .main-photo:focus-visible .photo-view-hint { opacity: 1; }
+    .photo-view-hint .material-symbols-outlined { font-size: 17px; }
+    .thumbnail-grid { display: grid; grid-column: 2; grid-row: 1 / span 2; grid-template-rows: repeat(2, minmax(0, 1fr)); gap: 8px; height: 100%; min-height: 0; }
+    .thumbnail { position: relative; display: block; width: 100%; min-height: 0; overflow: hidden; border: 0; border-radius: 8px; background: var(--surface-high); padding: 0; cursor: pointer; }
     .thumbnail img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
     .thumbnail:hover img { transform: scale(1.06); }
-    .thumbnail:last-child::after { position: absolute; inset: 0; display: grid; place-items: center; background: rgba(1, 20, 13, .38); color: #fbfdf9; content: "+12  圖片"; font-family: "Hanken Grotesk", sans-serif; font-size: .82rem; font-weight: 600; }
+    .thumbnail.has-more::after { position: absolute; inset: 0; display: grid; place-items: center; background: rgba(1, 20, 13, .42); color: #fbfdf9; content: attr(data-more-label); font-family: "Hanken Grotesk", sans-serif; font-size: .82rem; font-weight: 600; }
+    .thumbnail.is-active { box-shadow: 0 0 0 3px var(--primary); }
+    .thumbnail:focus-visible { outline-offset: -3px; }
+    .gallery-open { overflow: hidden; }
+    .lightbox { position: fixed; z-index: 40; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(1, 20, 13, .88); padding: 24px; }
+    .lightbox-backdrop { position: absolute; inset: 0; }
+    .lightbox-content { position: relative; z-index: 1; display: flex; width: min(1120px, 100%); height: min(100%, 860px); flex-direction: column; gap: 16px; }
+    .lightbox-header { display: flex; align-items: center; justify-content: space-between; gap: 16px; color: #fbfdf9; }
+    .lightbox-header p { margin: 0; font-family: "Hanken Grotesk", sans-serif; font-size: .95rem; font-weight: 700; }
+    .lightbox-counter { color: rgba(251, 253, 249, .76); font-size: .82rem; }
+    .lightbox-close, .lightbox-nav { display: grid; place-items: center; border: 1px solid rgba(251, 253, 249, .32); border-radius: 999px; background: rgba(1, 20, 13, .58); color: #fbfdf9; cursor: pointer; transition: background .2s ease, border-color .2s ease; }
+    .lightbox-close:hover, .lightbox-nav:hover { border-color: rgba(251, 253, 249, .76); background: rgba(251, 253, 249, .16); }
+    .lightbox-close { width: 42px; height: 42px; }
+    .lightbox-figure { position: relative; display: flex; min-height: 0; flex: 1; align-items: center; justify-content: center; margin: 0; padding: 0 64px; }
+    .lightbox-figure img { max-width: 100%; max-height: 100%; border-radius: 12px; object-fit: contain; box-shadow: 0 24px 60px rgba(0, 0, 0, .3); }
+    .lightbox-figure figcaption { position: absolute; right: 64px; bottom: 16px; left: 64px; color: rgba(251, 253, 249, .76); font-size: .78rem; text-align: center; }
+    .lightbox-nav { position: absolute; top: 50%; width: 46px; height: 46px; transform: translateY(-50%); }
+    .lightbox-previous { left: 0; }
+    .lightbox-next { right: 0; }
 
-    .overview-column { position: relative; grid-column: span 4; }
-    .overview-card { position: sticky; top: 100px; display: flex; flex-direction: column; gap: 24px; border: 1px solid rgba(193, 200, 194, .4); border-radius: 12px; background: var(--surface); padding: 32px; box-shadow: var(--shadow-card); }
+    .overview-column { position: sticky; top: 100px; align-self: start; }
+    .overview-card { display: flex; flex-direction: column; gap: 24px; border: 1px solid rgba(193, 200, 194, .4); border-radius: 12px; background: var(--surface); padding: 32px; box-shadow: var(--shadow-card); }
     .overview-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
     .overview-heading h1 { margin: 0; color: var(--ink); font-size: clamp(1.55rem, 2.2vw, 2.05rem); line-height: 1.25; letter-spacing: -.045em; }
+    .price { display: flex; align-items: baseline; gap: 7px; margin: 16px 0 0; color: var(--primary); }
+    .price strong { font-size: clamp(1.7rem, 3.2vw, 2.45rem); line-height: 1; letter-spacing: -.07em; }
+    .price span { color: var(--ink-muted); font-size: .9rem; }
     .favorite { display: grid; flex: 0 0 auto; width: 36px; height: 36px; place-items: center; border: 0; background: transparent; color: var(--ink-muted); cursor: pointer; }
     .favorite:hover { color: var(--primary); }
     .favorite.is-bookmarked { color: var(--primary); }
     .favorite.is-bookmarked .material-symbols-outlined { font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 24; }
-    .location { display: flex; align-items: center; gap: 5px; margin: 11px 0 18px; color: var(--ink-muted); font-size: .92rem; }
-    .location .material-symbols-outlined { font-size: 19px; }
-    .price { display: flex; align-items: baseline; gap: 7px; margin: 0; color: var(--primary); }
-    .price strong { font-size: clamp(2rem, 3.5vw, 2.8rem); line-height: 1; letter-spacing: -.07em; }
-    .price span { color: var(--ink-muted); font-size: .95rem; }
     .divider { width: 100%; height: 1px; background: rgba(193, 200, 194, .66); }
-    .summary-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 19px 16px; }
+    .summary-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-rows: repeat(2, auto); gap: 24px; }
     .summary-item { display: flex; flex-direction: column; gap: 2px; }
+    .summary-item dt, .summary-item dd { margin: 0; }
     .summary-item small { color: var(--ink-muted); font-size: .75rem; }
     .summary-item strong { font-family: "Hanken Grotesk", sans-serif; font-size: .9rem; font-weight: 600; }
     .button { display: inline-flex; width: 100%; min-height: 50px; align-items: center; justify-content: center; gap: 8px; border-radius: 8px; padding: 13px 18px; font-family: "Hanken Grotesk", sans-serif; font-size: .9rem; font-weight: 600; text-decoration: none; transition: background .2s ease, color .2s ease, transform .2s ease; }
@@ -102,32 +126,39 @@
     .button-primary:hover { background: var(--primary-container); }
     .button-outline { border: 1px solid var(--primary); background: transparent; color: var(--primary); }
     .button-outline:hover { background: var(--surface-low); }
+    .overview-actions { display: flex; flex-direction: column; gap: 12px; }
     .static-note { margin: -10px 0 0; color: var(--ink-soft); font-size: .76rem; text-align: center; }
 
-    .details-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; margin-bottom: 80px; }
+    .details-grid { display: grid; grid-template-columns: 1fr; gap: 24px; margin-bottom: 80px; }
     .info-card { border: 1px solid rgba(193, 200, 194, .35); border-radius: 12px; background: var(--surface); padding: 32px; box-shadow: var(--shadow-soft); }
     .info-card h2 { display: flex; align-items: center; gap: 9px; margin: 0 0 24px; color: var(--ink); font-size: 1.48rem; line-height: 1.3; letter-spacing: -.045em; }
     .info-card h2 .material-symbols-outlined { color: var(--primary); }
-    .fee-list { display: flex; flex-direction: column; gap: 0; margin: 0; }
-    .fee-row { display: flex; align-items: center; justify-content: space-between; gap: 18px; border-bottom: 1px solid rgba(193, 200, 194, .42); padding: 13px 0; }
-    .fee-row:last-child { border-bottom: 0; padding-bottom: 0; }
-    .fee-row dt { color: var(--ink-muted); font-size: .9rem; }
-    .fee-row dd { margin: 0; color: var(--ink); font-family: "Hanken Grotesk", sans-serif; font-size: .9rem; font-weight: 600; text-align: right; }
-    .fee-row dd small { display: block; color: var(--ink-soft); font-family: "Manrope", sans-serif; font-size: .7rem; font-weight: 400; }
-    .amenity-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .info-card h3 { margin: 0 0 18px; color: var(--ink); font-size: 1.05rem; line-height: 1.3; letter-spacing: -.03em; }
+    .section-divider { margin: 28px 0; }
+    .amenity-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
     .amenity { display: flex; align-items: center; gap: 10px; min-height: 48px; border: 1px solid rgba(193, 200, 194, .46); border-radius: 999px; background: var(--background); padding: 10px 14px; color: var(--ink); font-family: "Hanken Grotesk", sans-serif; font-size: .82rem; font-weight: 600; }
     .amenity .material-symbols-outlined { color: var(--primary); font-size: 19px; }
     .amenity.is-muted { color: var(--ink-soft); text-decoration: line-through; }
     .amenity.is-muted .material-symbols-outlined { color: var(--outline); }
-    .conditions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
-    .condition { border-radius: 999px; background: var(--primary-fixed); padding: 6px 11px; color: var(--primary); font-size: .76rem; font-weight: 700; }
-
-    .trust-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 80px; border-top: 1px solid rgba(193, 200, 194, .55); border-bottom: 1px solid rgba(193, 200, 194, .55); padding: 24px 0; }
-    .trust-item { display: flex; align-items: center; gap: 12px; color: var(--ink-muted); font-size: .83rem; }
-    .trust-item + .trust-item { border-left: 1px solid rgba(193, 200, 194, .55); padding-left: 24px; }
-    .trust-icon { display: grid; flex: 0 0 auto; width: 30px; height: 30px; place-items: center; border-radius: 50%; background: var(--primary-fixed); color: var(--primary); }
-    .trust-item strong { display: block; color: var(--ink); font-family: "Hanken Grotesk", sans-serif; font-size: .84rem; font-weight: 600; }
-    .trust-item span { display: block; color: var(--ink-soft); font-size: .73rem; }
+    .neighborhood-section { margin-bottom: 80px; }
+    .neighborhood-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 24px; }
+    .neighborhood-kicker { margin: 0 0 5px; color: var(--primary); font-size: .76rem; font-weight: 800; letter-spacing: .08em; }
+    .neighborhood-heading h2 { margin: 0; color: var(--ink); font-size: 1.48rem; line-height: 1.3; letter-spacing: -.045em; }
+    .neighborhood-heading p:not(.neighborhood-kicker) { margin: 8px 0 0; color: var(--ink-soft); font-size: .82rem; }
+    .neighborhood-meta { display: inline-flex; flex: 0 0 auto; align-items: center; gap: 7px; border: 1px solid rgba(193, 200, 194, .55); border-radius: 999px; padding: 8px 12px; color: var(--ink-muted); font-size: .76rem; font-weight: 700; }
+    .neighborhood-meta .material-symbols-outlined { color: var(--primary); font-size: 18px; }
+    .neighborhood-layout { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; align-items: stretch; }
+    .neighborhood-map-shell { position: relative; overflow: hidden; border: 1px solid rgba(193, 200, 194, .4); border-radius: 12px; background: var(--surface); box-shadow: var(--shadow-soft); }
+    #neighborhood-map { display: block; width: 100%; height: 100%; min-height: 0; border: 0; background: #e9efeb; }
+    .neighborhood-copy { display: flex; flex-direction: column; justify-content: flex-start; border: 1px solid rgba(193, 200, 194, .35); border-radius: 12px; background: var(--surface); padding: 24px; box-shadow: var(--shadow-soft); }
+    .neighborhood-copy-label { margin: 0 0 14px; color: var(--primary); font-size: .76rem; font-weight: 800; letter-spacing: .08em; }
+    .neighborhood-point { display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 12px; border-top: 1px solid rgba(193, 200, 194, .5); padding: 14px 0; }
+    .neighborhood-point:first-of-type { border-top: 0; padding-top: 0; }
+    .neighborhood-point:last-child { padding-bottom: 0; }
+    .neighborhood-point-icon { display: grid; width: 34px; height: 34px; place-items: center; border-radius: 50%; background: var(--primary-fixed); color: var(--primary); }
+    .neighborhood-point-icon .material-symbols-outlined { font-size: 19px; }
+    .neighborhood-point h3 { margin: 0 0 5px; color: var(--ink); font-size: .98rem; line-height: 1.35; }
+    .neighborhood-point p { margin: 0; color: var(--ink-soft); font-size: .82rem; line-height: 1.65; }
 
     .site-footer { display: flex; align-items: flex-start; justify-content: space-between; gap: 32px; border-top: 1px solid var(--outline-soft); padding: 48px max(20px, calc((100vw - 1280px) / 2)) 52px; }
     .footer-copy { display: flex; flex-direction: column; gap: 12px; }
@@ -137,10 +168,15 @@
     .footer-links a:hover { color: var(--primary); text-decoration: underline; }
 
     @media (max-width: 900px) {
-      .hero-layout { grid-template-columns: 1fr; }
-      .visual-column, .overview-column { grid-column: auto; }
-      .overview-card { position: static; }
-      .overview-heading h1 { font-size: 2rem; }
+      .amenity-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .neighborhood-layout { grid-template-columns: 1fr; }
+      #neighborhood-map { height: 480px; }
+    }
+    @media (min-width: 721px) and (max-width: 900px) {
+      .page-width { width: min(100% - 32px, 860px); }
+      .listing-layout { grid-template-columns: minmax(0, 1fr) 300px; gap: 16px; }
+      .overview-card { gap: 18px; padding: 24px; }
+      .overview-heading h1 { font-size: 1.6rem; }
     }
     @media (max-width: 720px) {
       .page-width { width: min(100% - 32px, 620px); }
@@ -148,18 +184,31 @@
       .nav-links { display: none; }
       .nav-login { padding-right: 0; }
       main { padding-top: 20px; }
+      .listing-layout { grid-template-columns: 1fr; gap: 0; }
+      .visual-column { display: flex; flex-direction: column; aspect-ratio: auto; }
+      .main-photo { grid-column: auto; grid-row: auto; height: auto; aspect-ratio: 16 / 9; }
+      .thumbnail-grid { grid-column: auto; grid-row: auto; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: none; height: auto; }
+      .thumbnail { aspect-ratio: 1; }
+      .overview-column { position: static; order: -1; margin-bottom: 52px; }
       .hero-layout, .details-grid { gap: 16px; margin-bottom: 52px; }
       .overview-card, .info-card { padding: 24px; }
-      .trust-row { grid-template-columns: 1fr; gap: 16px; margin-bottom: 52px; }
-      .trust-item + .trust-item { border-left: 0; border-top: 1px solid rgba(193, 200, 194, .55); padding: 16px 0 0; }
+      .summary-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: none; gap: 19px 16px; }
+      .neighborhood-section { margin-bottom: 52px; }
+      .neighborhood-heading { align-items: flex-start; flex-direction: column; gap: 12px; }
+      #neighborhood-map { height: 420px; }
+      .neighborhood-copy { padding: 24px; }
       .site-footer { flex-direction: column; padding: 36px 16px 42px; }
       .footer-links { flex-wrap: wrap; gap: 12px 20px; }
     }
     @media (max-width: 480px) {
       .thumbnail-grid { grid-template-columns: repeat(2, 1fr); }
       .amenity-grid { grid-template-columns: 1fr; }
-      .fee-row { align-items: flex-start; flex-direction: column; gap: 3px; }
-      .fee-row dd { text-align: left; }
+      .summary-grid { grid-template-columns: 1fr; }
+      .lightbox { padding: 16px; }
+      .lightbox-content { gap: 12px; }
+      .lightbox-figure { padding: 0 48px; }
+      .lightbox-figure figcaption { right: 48px; bottom: 8px; left: 48px; }
+      .lightbox-nav { width: 40px; height: 40px; }
     }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
@@ -173,7 +222,7 @@
       <a class="brand" href="#top">nidomi</a>
       <div class="nav-links">
         <a href="#fees">費用</a>
-        <a href="#facilities">設備與條件</a>
+        <a href="#facilities">設備</a>
         <a href="#booking" aria-current="page">約看</a>
       </div>
       <a class="nav-login" href="mailto:nidomi.service@gmail.com?subject=詢問 nidomi 房源">聯絡 nidomi</a>
@@ -181,80 +230,258 @@
   </header>
 
   <main id="top" class="page-width">
-    <section class="hero-layout" aria-labelledby="property-title">
-      <div class="visual-column">
-        <div class="main-photo">
-          <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&amp;fit=crop&amp;w=1500&amp;q=88" alt="明亮客廳與自然採光" loading="eager">
-          <div class="photo-overlay"><span class="verified-pill"><span class="material-symbols-outlined" aria-hidden="true">verified</span> 已驗證房源</span></div>
+    <div class="listing-layout">
+      <div class="listing-main">
+        <section class="hero-layout" aria-labelledby="property-title">
+          <div class="visual-column">
+            <button class="main-photo" id="main-photo-button" type="button" aria-label="查看第 1 張房源照片">
+              <img id="main-photo-image" src="img/20.jpg" alt="民生好室房源照片 20" loading="eager">
+              <span class="photo-view-hint"><span class="material-symbols-outlined" aria-hidden="true">zoom_in</span>查看相簿</span>
+              <span class="photo-overlay"><span class="verified-pill"><span class="material-symbols-outlined" aria-hidden="true">verified</span> 已驗證房源</span><span class="gallery-count" id="gallery-count">1 / 20 張</span></span>
+            </button>
+            <div class="thumbnail-grid" id="thumbnail-grid" aria-label="房源照片縮圖"></div>
+          </div>
+        </section>
+
+    <section class="details-grid" aria-label="環境、設備與費用資訊">
+      <article class="info-card" id="environment">
+        <h2><span class="material-symbols-outlined" aria-hidden="true">home_work</span>環境</h2>
+        <div class="summary-grid">
+          <div class="summary-item"><small>類型</small><strong>公寓</strong></div>
+          <div class="summary-item"><small>格局</small><strong>2 房 2 廳 1 衛</strong></div>
+          <div class="summary-item"><small>坪數</small><strong>22.77 坪</strong></div>
+          <div class="summary-item"><small>樓層</small><strong>5 樓／共 5 樓</strong></div>
+          <div class="summary-item"><small>產權登記</small><strong>已登記</strong></div>
+          <div class="summary-item"><small>開伙</small><strong>可開伙</strong></div>
         </div>
-        <div class="thumbnail-grid" aria-label="房源照片縮圖">
-          <div class="thumbnail"><img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&amp;fit=crop&amp;w=700&amp;q=84" alt="臥室與雙人床" loading="lazy"></div>
-          <div class="thumbnail"><img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&amp;fit=crop&amp;w=700&amp;q=84" alt="簡潔浴室空間" loading="lazy"></div>
-          <div class="thumbnail"><img src="https://images.unsplash.com/photo-1556912173-3bb406ef7e77?auto=format&amp;fit=crop&amp;w=700&amp;q=84" alt="可開伙的廚房" loading="lazy"></div>
-          <div class="thumbnail"><img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&amp;fit=crop&amp;w=700&amp;q=84" alt="客廳另一側視角" loading="lazy"></div>
+        <div class="divider section-divider" aria-hidden="true"></div>
+        <h3>費用</h3>
+        <dl class="summary-grid fee-summary" id="fees" aria-label="費用資訊">
+          <div class="summary-item"><dt><small>租金</small></dt><dd><strong>NT$ 25,000</strong></dd></div>
+          <div class="summary-item"><dt><small>押金</small></dt><dd><strong>一個月租金</strong></dd></div>
+          <div class="summary-item"><dt><small>水費</small></dt><dd><strong>依自來水帳單</strong></dd></div>
+          <div class="summary-item"><dt><small>電費</small></dt><dd><strong>依台電帳單</strong></dd></div>
+          <div class="summary-item"><dt><small>網路</small></dt><dd><strong>已含租金</strong></dd></div>
+        </dl>
+        <div class="divider section-divider" aria-hidden="true"></div>
+        <h3>備註</h3>
+        <div class="summary-grid" aria-label="備註">
+          <div class="summary-item"><small>可入住時間</small><strong>2026 年 9 月</strong></div>
+          <div class="summary-item"><small>最短租期</small><strong>12 個月</strong></div>
+          <div class="summary-item"><small>養寵物</small><strong>不可</strong></div>
+          <div class="summary-item"><small>租屋補助</small><strong>可申請</strong></div>
+          <div class="summary-item"><small>禁止抽煙</small><strong>禁止</strong></div>
         </div>
+      </article>
+
+      <article class="info-card" id="facilities">
+        <h2><span class="material-symbols-outlined" aria-hidden="true">chair</span>設備</h2>
+        <div class="amenity-grid">
+          <div class="amenity"><span class="material-symbols-outlined" aria-hidden="true">ac_unit</span>冷氣</div>
+          <div class="amenity"><span class="material-symbols-outlined" aria-hidden="true">local_laundry_service</span>洗衣機</div>
+          <div class="amenity"><span class="material-symbols-outlined" aria-hidden="true">kitchen</span>冰箱</div>
+          <div class="amenity"><span class="material-symbols-outlined" aria-hidden="true">bed</span>雙人床</div>
+          <div class="amenity"><span class="material-symbols-outlined" aria-hidden="true">weekend</span>沙發</div>
+          <div class="amenity"><span class="material-symbols-outlined" aria-hidden="true">kitchen</span>廚房設備</div>
+          <div class="amenity"><span class="material-symbols-outlined" aria-hidden="true">water_heater</span>熱水器</div>
+          <div class="amenity"><span class="material-symbols-outlined" aria-hidden="true">bedroom_parent</span>寢具</div>
+          <div class="amenity"><span class="material-symbols-outlined" aria-hidden="true">dresser</span>衣櫃</div>
+          <div class="amenity"><span class="material-symbols-outlined" aria-hidden="true">wifi</span>免費 Wi-Fi</div>
+          <div class="amenity"><span class="material-symbols-outlined" aria-hidden="true">detector_smoke</span>煙霧偵測</div>
+          <div class="amenity"><span class="material-symbols-outlined" aria-hidden="true">fire_extinguisher</span>滅火器</div>
+        </div>
+      </article>
+
+    </section>
+
+    <section class="neighborhood-section" id="neighborhood" aria-labelledby="neighborhood-title">
+      <div class="neighborhood-heading">
+        <div>
+          <p class="neighborhood-kicker">生活圈</p>
+          <h2 id="neighborhood-title">生活圈地圖</h2>
+          <p>以桃園市民生路與光華街交叉口為中心</p>
+        </div>
+        <div class="neighborhood-meta"><span class="material-symbols-outlined" aria-hidden="true">location_on</span>桃園市桃園區</div>
+      </div>
+      <div class="neighborhood-layout">
+        <div class="neighborhood-map-shell">
+          <iframe id="neighborhood-map" title="民生路與光華街周邊生活圈地圖" src="https://www.google.com/maps/embed?pb=!1m12!1m8!1m3!1d3615.103214287275!2d121.30994!3d25.00151!3m2!1i1024!2i768!4f13.1!2m1!1z5qGD5ZyS5biC5qGD5ZyS5Y2A5rCR55Sf6Lev6IiH5YWJ6I-v6KGX5Lqk5Y-J5Y-j!5e0!3m2!1szh-TW!2stw!4v1777010841094!5m2!1szh-TW!2stw" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        <div class="neighborhood-copy" aria-label="生活圈便利性">
+          <p class="neighborhood-copy-label">生活機能</p>
+          <article class="neighborhood-point">
+            <span class="neighborhood-point-icon material-symbols-outlined" aria-hidden="true">storefront</span>
+            <div><h3>購物便利</h3><p>鄰近桃園夜市，樓下步行約 1 分鐘即可到美廉社，日常採買與外食都方便。</p></div>
+          </article>
+          <article class="neighborhood-point">
+            <span class="neighborhood-point-icon material-symbols-outlined" aria-hidden="true">school</span>
+            <div><h3>學區便利</h3><p>鄰近北門國小、成功國小、慈文國中、文昌國中，涵蓋國小至國中的就學需求。</p></div>
+          </article>
+          <article class="neighborhood-point">
+            <span class="neighborhood-point-icon material-symbols-outlined" aria-hidden="true">train</span>
+            <div><h3>捷運建設</h3><p>鄰近未來桃園捷運綠線 G09 中正力行站，距離約 400 公尺，步行約 5–7 分鐘。</p></div>
+          </article>
+        </div>
+      </div>
+    </section>
       </div>
 
       <aside class="overview-column" aria-label="房源摘要">
         <div class="overview-card">
           <div>
             <div class="overview-heading">
-              <h1 id="property-title">採光一房一廳，步行可達捷運</h1>
+              <h1 id="property-title">民生好室</h1>
               <button class="favorite" id="favorite-button" type="button" aria-label="加入書籤" aria-pressed="false"><span class="material-symbols-outlined" id="favorite-icon" aria-hidden="true">favorite_border</span></button>
             </div>
-            <p class="location"><span class="material-symbols-outlined" aria-hidden="true">location_on</span>桃園市・桃園區・桃園夜市附近</p>
             <p class="price"><strong>NT$ 25,000</strong><span>／月</span></p>
           </div>
           <div class="divider" aria-hidden="true"></div>
-          <div class="summary-grid">
-            <div class="summary-item"><small>類型</small><strong>公寓</strong></div>
-            <div class="summary-item"><small>格局</small><strong>2 房 2 廳 1 衛</strong></div>
-            <div class="summary-item"><small>坪數</small><strong>22.77 坪</strong></div>
-            <div class="summary-item"><small>樓層</small><strong>5 樓／共 5 樓</strong></div>
-            <div class="summary-item"><small>可入住</small><strong>2026 年 9 月</strong></div>
-            <div class="summary-item"><small>最短租期</small><strong>12 個月</strong></div>
+          <div class="overview-actions">
+            <a class="button button-primary" id="booking" href="mailto:nidomi.service@gmail.com?subject=詢問看房：民生好室"><span class="material-symbols-outlined" aria-hidden="true">calendar_today</span> 約看（Book Viewing）</a>
           </div>
-          <a class="button button-primary" id="booking" href="mailto:nidomi.service@gmail.com?subject=詢問看房：採光一房一廳"><span class="material-symbols-outlined" aria-hidden="true">calendar_today</span> 約看（Book Viewing）</a>
-          <a class="button button-outline" href="mailto:nidomi.service@gmail.com?subject=詢問房源：採光一房一廳"><span class="material-symbols-outlined" aria-hidden="true">chat_bubble_outline</span> 聯絡房源提供者</a>
           <p class="static-note">目前為靜態展示頁，寄信後由提供者回覆確認。</p>
         </div>
       </aside>
-    </section>
-
-    <section class="details-grid" aria-label="費用與設備資訊">
-      <article class="info-card" id="fees">
-        <h2><span class="material-symbols-outlined" aria-hidden="true">payments</span>費用（Fees &amp; Terms）</h2>
-        <dl class="fee-list">
-          <div class="fee-row"><dt>押金</dt><dd>一個月租金</dd></div>
-          <div class="fee-row"><dt>水費</dt><dd>依自來水帳單<small>每期提供帳單資訊</small></dd></div>
-          <div class="fee-row"><dt>電費</dt><dd>依台電帳單<small>獨立電表</small></dd></div>
-          <div class="fee-row"><dt>網路</dt><dd>已含租金</dd></div>
-          <div class="fee-row"><dt>最短租期</dt><dd>1 年</dd></div>
-        </dl>
-      </article>
-
-      <article class="info-card" id="facilities">
-        <h2><span class="material-symbols-outlined" aria-hidden="true">chair</span>設備與條件（Facilities &amp; Rules）</h2>
-        <div class="amenity-grid">
-          <div class="amenity"><span class="material-symbols-outlined" aria-hidden="true">ac_unit</span>冷氣 2 台</div>
-          <div class="amenity"><span class="material-symbols-outlined" aria-hidden="true">local_laundry_service</span>洗衣機</div>
-          <div class="amenity"><span class="material-symbols-outlined" aria-hidden="true">kitchen</span>冰箱</div>
-          <div class="amenity"><span class="material-symbols-outlined" aria-hidden="true">bed</span>雙人床</div>
-          <div class="amenity is-muted"><span class="material-symbols-outlined" aria-hidden="true">smoking_rooms</span>室內禁菸</div>
-          <div class="amenity is-muted"><span class="material-symbols-outlined" aria-hidden="true">directions_car</span>無車位</div>
-        </div>
-        <div class="conditions" aria-label="租屋條件"><span class="condition">可開伙</span><span class="condition">最多 2 人</span><span class="condition">寵物需先討論</span><span class="condition">可申請租金補貼</span></div>
-      </article>
-    </section>
-
-    <section class="trust-row" aria-label="房源驗證狀態">
-      <div class="trust-item"><span class="trust-icon material-symbols-outlined" aria-hidden="true">verified</span><div><strong>資料已審核</strong><span>房源刊登內容已完成檢查</span></div></div>
-      <div class="trust-item"><span class="trust-icon material-symbols-outlined" aria-hidden="true">fact_check</span><div><strong>出租權利已確認</strong><span>提供者已完成必要驗證</span></div></div>
-      <div class="trust-item"><span class="trust-icon material-symbols-outlined" aria-hidden="true">workspace_premium</span><div><strong>專業資格會員</strong><span>林先生・金色認證標章</span></div></div>
-    </section>
+    </div>
   </main>
 
+  <div class="lightbox" id="gallery-lightbox" role="dialog" aria-modal="true" aria-labelledby="lightbox-title" hidden>
+    <div class="lightbox-backdrop" data-lightbox-close></div>
+    <div class="lightbox-content">
+      <div class="lightbox-header">
+        <p id="lightbox-title">民生好室房源相簿</p>
+        <div>
+          <span class="lightbox-counter" id="lightbox-counter" aria-live="polite">1 / 20</span>
+          <button class="lightbox-close" id="lightbox-close" type="button" aria-label="關閉相簿"><span class="material-symbols-outlined" aria-hidden="true">close</span></button>
+        </div>
+      </div>
+      <figure class="lightbox-figure">
+        <button class="lightbox-nav lightbox-previous" id="lightbox-previous" type="button" aria-label="上一張照片"><span class="material-symbols-outlined" aria-hidden="true">arrow_back</span></button>
+        <img id="lightbox-image" src="img/20.jpg" alt="民生好室房源照片 20">
+        <figcaption id="lightbox-caption">民生好室房源照片 20</figcaption>
+        <button class="lightbox-nav lightbox-next" id="lightbox-next" type="button" aria-label="下一張照片"><span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></button>
+      </figure>
+    </div>
+  </div>
+
   <script>
+    const galleryImages = [
+      { src: "img/20.jpg", alt: "民生好室房源照片 20" },
+      { src: "img/01.jpg", alt: "民生好室房源照片 01" },
+      { src: "img/02.png", alt: "民生好室房源照片 02" },
+      { src: "img/03.png", alt: "民生好室房源照片 03" },
+      { src: "img/04.png", alt: "民生好室房源照片 04" },
+      { src: "img/05.png", alt: "民生好室房源照片 05" },
+      { src: "img/06.png", alt: "民生好室房源照片 06" },
+      { src: "img/07.png", alt: "民生好室房源照片 07" },
+      { src: "img/08.png", alt: "民生好室房源照片 08" },
+      { src: "img/09.jpg", alt: "民生好室房源照片 09" },
+      { src: "img/10.jpg", alt: "民生好室房源照片 10" },
+      { src: "img/11.jpg", alt: "民生好室房源照片 11" },
+      { src: "img/12.jpg", alt: "民生好室房源照片 12" },
+      { src: "img/13.jpg", alt: "民生好室房源照片 13" },
+      { src: "img/14.jpg", alt: "民生好室房源照片 14" },
+      { src: "img/15.jpg", alt: "民生好室房源照片 15" },
+      { src: "img/16.jpg", alt: "民生好室房源照片 16" },
+      { src: "img/17.jpg", alt: "民生好室房源照片 17" },
+      { src: "img/18.jpg", alt: "民生好室房源照片 18" },
+      { src: "img/19.jpg", alt: "民生好室房源照片 19" }
+    ];
+    const mainPhotoButton = document.getElementById("main-photo-button");
+    const mainPhotoImage = document.getElementById("main-photo-image");
+    const galleryCount = document.getElementById("gallery-count");
+    const thumbnailGrid = document.getElementById("thumbnail-grid");
+    const lightbox = document.getElementById("gallery-lightbox");
+    const lightboxImage = document.getElementById("lightbox-image");
+    const lightboxCaption = document.getElementById("lightbox-caption");
+    const lightboxCounter = document.getElementById("lightbox-counter");
+    const lightboxClose = document.getElementById("lightbox-close");
+    const lightboxPrevious = document.getElementById("lightbox-previous");
+    const lightboxNext = document.getElementById("lightbox-next");
+    const visibleThumbnailIndexes = [1, 2];
+    let activeGalleryIndex = 0;
+    let previouslyFocusedElement = null;
+
+    const getGalleryPosition = (index) => (index + galleryImages.length) % galleryImages.length;
+
+    const setGalleryImage = (index) => {
+      activeGalleryIndex = getGalleryPosition(index);
+      const image = galleryImages[activeGalleryIndex];
+      const positionLabel = `${activeGalleryIndex + 1} / ${galleryImages.length}`;
+
+      mainPhotoImage.src = image.src;
+      mainPhotoImage.alt = image.alt;
+      mainPhotoButton.setAttribute("aria-label", `查看第 ${activeGalleryIndex + 1} 張房源照片`);
+      galleryCount.textContent = `${positionLabel} 張`;
+      lightboxImage.src = image.src;
+      lightboxImage.alt = image.alt;
+      lightboxCaption.textContent = image.alt;
+      lightboxCounter.textContent = positionLabel;
+
+      thumbnailGrid.querySelectorAll(".thumbnail").forEach((thumbnail) => {
+        const isActive = Number(thumbnail.dataset.galleryIndex) === activeGalleryIndex;
+        thumbnail.classList.toggle("is-active", isActive);
+        thumbnail.setAttribute("aria-pressed", String(isActive));
+      });
+    };
+
+    visibleThumbnailIndexes.forEach((index, thumbnailPosition) => {
+      const image = galleryImages[index];
+      const thumbnail = document.createElement("button");
+      const thumbnailImage = document.createElement("img");
+      thumbnail.className = "thumbnail";
+      thumbnail.type = "button";
+      thumbnail.dataset.galleryIndex = String(index);
+      thumbnail.setAttribute("aria-label", `查看${image.alt}`);
+      thumbnail.setAttribute("aria-pressed", "false");
+      thumbnailImage.src = image.src;
+      thumbnailImage.alt = image.alt;
+      thumbnailImage.loading = "lazy";
+      thumbnail.append(thumbnailImage);
+      if (thumbnailPosition === visibleThumbnailIndexes.length - 1) {
+        const hiddenPhotoCount = galleryImages.length - visibleThumbnailIndexes.length - 1;
+        thumbnail.classList.add("has-more");
+        thumbnail.dataset.moreLabel = `+${hiddenPhotoCount} 圖片`;
+        thumbnail.setAttribute("aria-label", `查看${image.alt}與其餘 ${hiddenPhotoCount} 張照片`);
+        thumbnail.addEventListener("click", () => {
+          setGalleryImage(index);
+          openLightbox();
+        });
+      } else {
+        thumbnail.addEventListener("click", () => setGalleryImage(index));
+      }
+      thumbnailGrid.append(thumbnail);
+    });
+
+    const openLightbox = () => {
+      previouslyFocusedElement = document.activeElement;
+      lightbox.hidden = false;
+      document.body.classList.add("gallery-open");
+      setGalleryImage(activeGalleryIndex);
+      lightboxClose.focus();
+    };
+
+    const closeLightbox = () => {
+      lightbox.hidden = true;
+      document.body.classList.remove("gallery-open");
+      if (previouslyFocusedElement instanceof HTMLElement) previouslyFocusedElement.focus();
+    };
+
+    const moveGallery = (direction) => setGalleryImage(activeGalleryIndex + direction);
+
+    setGalleryImage(0);
+    mainPhotoButton.addEventListener("click", openLightbox);
+    lightboxClose.addEventListener("click", closeLightbox);
+    lightboxPrevious.addEventListener("click", () => moveGallery(-1));
+    lightboxNext.addEventListener("click", () => moveGallery(1));
+    lightbox.querySelector("[data-lightbox-close]").addEventListener("click", closeLightbox);
+    document.addEventListener("keydown", (event) => {
+      if (lightbox.hidden) return;
+      if (event.key === "Escape") closeLightbox();
+      if (event.key === "ArrowLeft") moveGallery(-1);
+      if (event.key === "ArrowRight") moveGallery(1);
+    });
+
     const favoriteButton = document.getElementById("favorite-button");
     const favoriteIcon = document.getElementById("favorite-icon");
     const favoriteStorageKey = "nidomi:property-bookmarked";
@@ -283,6 +510,7 @@
         // 不阻止愛心狀態切換。
       }
     });
+
   </script>
 
   <footer class="site-footer">
