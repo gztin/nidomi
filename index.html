@@ -61,9 +61,6 @@
     .nav-links a { padding: 27px 0 24px; text-decoration: none; transition: color .2s ease, border-color .2s ease; }
     .nav-links a:hover, .nav-links a[aria-current="page"] { color: var(--primary); }
     .nav-links a[aria-current="page"] { border-bottom: 2px solid var(--primary); }
-    .nav-login { border: 0; background: transparent; padding: 10px 14px; color: var(--primary); font-family: "Hanken Grotesk", sans-serif; font-weight: 600; cursor: pointer; text-decoration: none; }
-    .nav-login:hover { background: var(--surface-high); border-radius: 6px; }
-
     main { padding: 32px 0 80px; }
     .listing-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(320px, 381px); gap: 24px; align-items: start; }
     .listing-main { min-width: 0; }
@@ -108,9 +105,6 @@
     .overview-card { display: flex; flex-direction: column; gap: 24px; border: 1px solid rgba(193, 200, 194, .4); border-radius: 12px; background: var(--surface); padding: 32px; box-shadow: var(--shadow-card); }
     .overview-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
     .overview-heading h1 { margin: 0; color: var(--ink); font-size: clamp(1.55rem, 2.2vw, 2.05rem); line-height: 1.25; letter-spacing: -.045em; }
-    .price { display: flex; align-items: baseline; gap: 7px; margin: 16px 0 0; color: var(--primary); }
-    .price strong { font-size: clamp(1.7rem, 3.2vw, 2.45rem); line-height: 1; letter-spacing: -.07em; }
-    .price span { color: var(--ink-muted); font-size: .9rem; }
     .divider { width: 100%; height: 1px; background: rgba(193, 200, 194, .66); }
     #environment .summary-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-rows: repeat(2, auto); gap: 8px; }
     .summary-item { display: flex; flex-direction: column; gap: 2px; }
@@ -124,6 +118,11 @@
     .button-outline { border: 1px solid var(--primary); background: transparent; color: var(--primary); }
     .button-outline:hover { background: var(--surface-low); }
     .overview-actions { display: flex; flex-direction: column; gap: 12px; }
+    .renovation-summary { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-top: 18px; }
+    .renovation-credit { margin: 0; color: var(--ink-soft); font-size: .82rem; font-weight: 700; }
+    .renovation-link { display: inline-flex; flex: 0 0 auto; align-items: center; justify-content: center; gap: 6px; border-radius: 999px; background: var(--primary); padding: 9px 12px; color: #fbfdf9; font-family: "Hanken Grotesk", sans-serif; font-size: .76rem; font-weight: 700; text-decoration: none; transition: background .2s ease, transform .2s ease; }
+    .renovation-link:hover { background: var(--primary-container); transform: translateY(-1px); }
+    .renovation-link .material-symbols-outlined { font-size: 17px; }
     .property-intro-card h2 { margin-bottom: 24px; }
     .property-intro-lead { margin: 0; color: var(--ink); font-size: .98rem; line-height: 1.85; }
     .property-intro-section { border-top: 1px solid rgba(193, 200, 194, .66); margin-top: 24px; padding-top: 24px; }
@@ -223,7 +222,6 @@
       .page-width { width: min(100% - 32px, 620px); }
       .nav-bar { min-height: 66px; }
       .nav-links { display: none; }
-      .nav-login { padding-right: 0; }
       main { padding-top: 20px; }
       .listing-layout { grid-template-columns: 1fr; gap: 0; }
       .visual-column { display: flex; flex-direction: column; aspect-ratio: auto; }
@@ -233,6 +231,8 @@
       .overview-column { position: static; order: -1; margin-bottom: 52px; }
       .hero-layout, .details-grid { gap: 16px; margin-bottom: 52px; }
       .overview-card, .info-card { padding: 24px; }
+      .renovation-summary { align-items: flex-start; flex-direction: column; }
+      .renovation-link { width: 100%; }
       .property-feature-list { grid-template-columns: 1fr; }
       #environment.info-card,
       #facilities.info-card,
@@ -273,7 +273,6 @@
         <a href="#facilities">設備</a>
         <a href="#neighborhood">生活圈</a>
       </div>
-      <a class="nav-login" href="mailto:nidomi.service@gmail.com?subject=詢問 nidomi 房源">聯絡 nidomi</a>
     </nav>
   </header>
 
@@ -283,7 +282,7 @@
         <section class="hero-layout" aria-labelledby="property-title">
           <div class="visual-column">
             <button class="main-photo" id="main-photo-button" type="button" aria-label="查看第 1 張房源照片">
-              <img id="main-photo-image" src="img/20.jpg" alt="民生好室房源照片 20" loading="eager">
+              <img id="main-photo-image" src="img/display/01.webp" alt="民生好室房源照片 01" loading="eager">
               <span class="photo-view-hint"><span class="material-symbols-outlined" aria-hidden="true">zoom_in</span>查看相簿</span>
               <span class="photo-overlay"><span class="verified-pill"><span class="material-symbols-outlined" aria-hidden="true">verified</span> 已驗證房源</span><span class="gallery-count" id="gallery-count">1 / 19 張</span></span>
             </button>
@@ -428,7 +427,10 @@
             <div class="overview-heading">
               <h1 id="property-title">民生好室</h1>
             </div>
-            <p class="price"><strong>NT$ 25,000</strong><span>／月</span></p>
+            <div class="renovation-summary">
+              <p class="renovation-credit">監修：日角設計</p>
+              <a class="renovation-link" href="renovation.html">查看翻修歷程<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+            </div>
           </div>
           <div class="divider" aria-hidden="true"></div>
           <section class="intermediary-card" id="booking" aria-labelledby="intermediary-title">
@@ -462,8 +464,8 @@
       </div>
       <figure class="lightbox-figure">
         <button class="lightbox-nav lightbox-previous" id="lightbox-previous" type="button" aria-label="上一張照片"><span class="material-symbols-outlined" aria-hidden="true">arrow_back</span></button>
-        <img id="lightbox-image" src="img/20.jpg" alt="民生好室房源照片 20">
-        <figcaption id="lightbox-caption">民生好室房源照片 20</figcaption>
+        <img id="lightbox-image" src="img/display/01.webp" alt="民生好室房源照片 01">
+        <figcaption id="lightbox-caption">民生好室房源照片 01</figcaption>
         <button class="lightbox-nav lightbox-next" id="lightbox-next" type="button" aria-label="下一張照片"><span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></button>
       </figure>
     </div>
@@ -471,25 +473,25 @@
 
   <script>
     const galleryImages = [
-      { src: "img/20.jpg", alt: "民生好室房源照片 20" },
-      { src: "img/01.jpg", alt: "民生好室房源照片 01" },
-      { src: "img/02.png", alt: "民生好室房源照片 02" },
-      { src: "img/03.png", alt: "民生好室房源照片 03" },
-      { src: "img/04.png", alt: "民生好室房源照片 04" },
-      { src: "img/05.png", alt: "民生好室房源照片 05" },
-      { src: "img/06.png", alt: "民生好室房源照片 06" },
-      { src: "img/07.png", alt: "民生好室房源照片 07" },
-      { src: "img/08.png", alt: "民生好室房源照片 08" },
-      { src: "img/09.jpg", alt: "民生好室房源照片 09" },
-      { src: "img/10.jpg", alt: "民生好室房源照片 10" },
-      { src: "img/12.jpg", alt: "民生好室房源照片 12" },
-      { src: "img/13.jpg", alt: "民生好室房源照片 13" },
-      { src: "img/14.jpg", alt: "民生好室房源照片 14" },
-      { src: "img/15.jpg", alt: "民生好室房源照片 15" },
-      { src: "img/16.jpg", alt: "民生好室房源照片 16" },
-      { src: "img/17.jpg", alt: "民生好室房源照片 17" },
-      { src: "img/18.jpg", alt: "民生好室房源照片 18" },
-      { src: "img/19.jpg", alt: "民生好室房源照片 19" }
+      { src: "img/display/01.webp", alt: "民生好室房源照片 01" },
+      { src: "img/display/02.webp", alt: "民生好室房源照片 02" },
+      { src: "img/display/03.webp", alt: "民生好室房源照片 03" },
+      { src: "img/display/04.webp", alt: "民生好室房源照片 04" },
+      { src: "img/display/05.webp", alt: "民生好室房源照片 05" },
+      { src: "img/display/06.webp", alt: "民生好室房源照片 06" },
+      { src: "img/display/07.webp", alt: "民生好室房源照片 07" },
+      { src: "img/display/08.webp", alt: "民生好室房源照片 08" },
+      { src: "img/display/09.webp", alt: "民生好室房源照片 09" },
+      { src: "img/display/10.webp", alt: "民生好室房源照片 10" },
+      { src: "img/display/11.webp", alt: "民生好室房源照片 11" },
+      { src: "img/display/12.webp", alt: "民生好室房源照片 12" },
+      { src: "img/display/13.webp", alt: "民生好室房源照片 13" },
+      { src: "img/display/14.webp", alt: "民生好室房源照片 14" },
+      { src: "img/display/15.webp", alt: "民生好室房源照片 15" },
+      { src: "img/display/16.webp", alt: "民生好室房源照片 16" },
+      { src: "img/display/17.webp", alt: "民生好室房源照片 17" },
+      { src: "img/display/18.webp", alt: "民生好室房源照片 18" },
+      { src: "img/display/19.webp", alt: "民生好室房源照片 19" }
     ];
     const mainPhotoButton = document.getElementById("main-photo-button");
     const mainPhotoImage = document.getElementById("main-photo-image");
