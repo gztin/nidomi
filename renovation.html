@@ -3,8 +3,21 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="民生好室翻修歷程，記錄日角設計監修的現場修繕與拆除過程。">
-  <title>翻修歷程｜民生好室 - nidomi</title>
+  <meta name="description" content="民生好室翻修紀錄，記錄桃園區租屋物件的拆除、修繕與設備整理，了解入住前的空間改善過程。">
+  <link rel="canonical" href="https://gztin.github.io/nidomi/renovation.html">
+  <meta property="og:locale" content="zh_TW">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="nidomi">
+  <meta property="og:title" content="民生好室翻修紀錄｜桃園區租屋修繕實錄">
+  <meta property="og:description" content="記錄民生好室的拆除、修繕與設備整理，了解入住前的空間改善過程。">
+  <meta property="og:url" content="https://gztin.github.io/nidomi/renovation.html">
+  <meta property="og:image" content="https://gztin.github.io/nidomi/img/renovation/diary-nook.jpg">
+  <meta property="og:image:alt" content="民生好室翻修後的室內空間">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="民生好室翻修紀錄｜桃園區租屋修繕實錄">
+  <meta name="twitter:description" content="記錄民生好室的拆除、修繕與設備整理。">
+  <meta name="twitter:image" content="https://gztin.github.io/nidomi/img/renovation/diary-nook.jpg">
+  <title>民生好室翻修紀錄｜桃園區租屋修繕實錄｜nidomi</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@600;700;800&amp;family=Manrope:wght@400;600;700;800&amp;family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,400,0,0" rel="stylesheet">
@@ -46,11 +59,16 @@
     .studio-intro-copy > p { margin: 0; color: var(--ink); font-size: .94rem; line-height: 1.9; }
     .studio-intro-copy > p + p { margin-top: 16px; }
     .studio-intro-lead { color: var(--ink) !important; font-size: 1.12rem !important; font-weight: 800; letter-spacing: -.025em; }
-    .studio-intro-contact { border-top: 1px solid rgba(20, 56, 59, .18); margin-top: 24px; padding-top: 20px; }
+    .studio-intro-contact { display: flex; align-items: center; justify-content: space-between; gap: 24px; border-top: 1px solid rgba(20, 56, 59, .18); margin-top: 24px; padding-top: 20px; }
+    .studio-intro-contact-copy { min-width: 0; }
     .studio-intro-contact p { margin: 0; }
     .studio-intro-contact p + p { margin-top: 7px; }
     .studio-intro-contact-label { color: var(--ink-soft) !important; font-size: .76rem !important; font-weight: 800; }
     .studio-intro-contact a { color: var(--ink); font-weight: 800; text-underline-offset: 4px; }
+    .studio-intro-social { flex: 0 0 auto; }
+    .studio-intro-social-link { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--ink); border-radius: 999px; padding: 9px 14px; color: var(--ink); font-size: .78rem; font-weight: 800; text-decoration: none; transition: background .2s ease, color .2s ease; }
+    .studio-intro-social-link:hover { background: var(--surface-dark); color: #fff; }
+    .studio-intro-social-link .material-symbols-outlined { font-size: 18px; }
 
     .gallery-section { margin-top: 40px; }
     .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 24px; }
@@ -93,6 +111,7 @@
       .studio-intro { grid-template-columns: 1fr; gap: 28px; padding: 38px 0 28px; }
       .studio-intro-image { grid-column: 1; grid-row: 1; max-width: 420px; }
       .studio-intro-copy { grid-column: 1; grid-row: 2; }
+      .studio-intro-contact { align-items: flex-start; flex-direction: column; gap: 14px; }
       .gallery-section { margin-top: 32px; }
       .gallery-wall { column-count: 2; column-gap: 12px; }
       .wall-item { margin-bottom: 12px; }
@@ -132,9 +151,14 @@
         <p>保存日常角落的一種空間態度。由兩位領有室內設計及工程管理證照，與一位擁有40年經驗的師傅組成</p>
         <p>空間作為載體，設計手法作為執行手段，能夠在過程中找到適合空間的風格形式以及適合您的空間形式，藉此達到價值最高的平衡路線</p>
         <div class="studio-intro-contact">
-          <p class="studio-intro-contact-label">預約諮詢</p>
-          <p>為節省您寶貴的時間，採提前預約制</p>
-          <p>請撥打服務專線 <a href="tel:0982983019">0982983019</a> 張設計師</p>
+          <div class="studio-intro-contact-copy">
+            <p class="studio-intro-contact-label">預約諮詢</p>
+            <p>為節省您寶貴的時間，採提前預約制</p>
+            <p>請撥打服務專線 <a href="tel:0982983019">0982983019</a> 張設計師</p>
+          </div>
+          <div class="studio-intro-social">
+            <a class="studio-intro-social-link" href="https://www.facebook.com/diarynooK?locale=zh_TW" target="_blank" rel="noopener noreferrer" aria-label="前往日角設計 Facebook 粉絲專頁"><span class="material-symbols-outlined" aria-hidden="true">open_in_new</span>Facebook 粉絲專頁</a>
+          </div>
         </div>
       </div>
       <figure class="studio-intro-image">

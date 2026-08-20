@@ -3,8 +3,21 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="nidomi 房源資訊：民生好室，採光一房一廳，步行可達捷運。">
-  <title>民生好室｜出租房源 - nidomi</title>
+  <meta name="description" content="桃園市桃園區民生路租屋｜2 房 2 廳 1 衛，月租 NT$20,000，網路已含租金，可申請租屋補助，鄰近桃園夜市與生活採買。">
+  <link rel="canonical" href="https://gztin.github.io/nidomi/">
+  <meta property="og:locale" content="zh_TW">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="nidomi">
+  <meta property="og:title" content="桃園區民生路 2 房 2 廳租屋｜租屋補助可申請｜民生好室">
+  <meta property="og:description" content="桃園市桃園區民生路租屋，2 房 2 廳 1 衛，月租 NT$20,000，網路已含租金，可申請租屋補助。">
+  <meta property="og:url" content="https://gztin.github.io/nidomi/">
+  <meta property="og:image" content="https://gztin.github.io/nidomi/img/display/01.webp">
+  <meta property="og:image:alt" content="民生好室桃園租屋房源照片">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="桃園區民生路 2 房 2 廳租屋｜民生好室">
+  <meta name="twitter:description" content="2 房 2 廳 1 衛，月租 NT$20,000，網路已含租金，可申請租屋補助。">
+  <meta name="twitter:image" content="https://gztin.github.io/nidomi/img/display/01.webp">
+  <title>桃園區民生路 2 房 2 廳租屋｜租屋補助可申請｜民生好室｜nidomi</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@600;700&amp;family=Manrope:wght@400;600;700;800&amp;family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,400,0,0" rel="stylesheet">
@@ -162,17 +175,15 @@
     .subsidy-dialog-open { overflow: hidden; }
     .subsidy-dialog { position: fixed; z-index: 60; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(1, 20, 13, .58); padding: 20px; }
     .subsidy-dialog-backdrop { position: absolute; inset: 0; }
-    .subsidy-dialog-panel { position: relative; z-index: 1; display: flex; width: min(560px, 100%); max-height: min(720px, calc(100vh - 40px)); flex-direction: column; overflow: auto; border: 1px solid rgba(193, 200, 194, .6); border-radius: 16px; background: var(--surface); padding: 28px; box-shadow: 0 28px 70px rgba(0, 0, 0, .22); }
+    .subsidy-dialog-panel { position: relative; z-index: 1; display: flex; width: min(560px, 100%); max-height: min(720px, calc(100vh - 40px)); flex-direction: column; overflow: hidden; border: 1px solid rgba(193, 200, 194, .6); border-radius: 16px; background: var(--surface); padding: 28px; box-shadow: 0 28px 70px rgba(0, 0, 0, .22); }
     .subsidy-dialog-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
-    .subsidy-dialog-header h3 { margin: 0; color: var(--ink); font-size: 1.35rem; line-height: 1.25; letter-spacing: -.045em; }
     .subsidy-dialog-step { margin: 0 0 4px; color: var(--primary); font-size: .72rem; font-weight: 800; letter-spacing: .08em; }
     .subsidy-dialog-close { display: grid; width: 38px; height: 38px; flex: 0 0 auto; place-items: center; border: 1px solid rgba(193, 200, 194, .8); border-radius: 999px; background: transparent; color: var(--ink); cursor: pointer; }
     .subsidy-dialog-close:hover { background: var(--surface-low); }
-    .subsidy-dialog-progress { height: 4px; margin: 20px 0 28px; overflow: hidden; border-radius: 999px; background: var(--surface-high); }
-    .subsidy-dialog-progress span { display: block; width: 50%; height: 100%; border-radius: inherit; background: var(--primary); transition: width .25s ease; }
-    .subsidy-dialog-body { min-height: 250px; }
+    .subsidy-dialog-body { min-height: 0; flex: 1 1 auto; overflow-y: auto; }
     .subsidy-dialog-question { margin: 0 0 20px; color: var(--ink); font-size: 1.05rem; font-weight: 800; line-height: 1.45; }
     .subsidy-dialog-helper { margin: -10px 0 18px; color: var(--ink-soft); font-size: .78rem; line-height: 1.65; }
+    .subsidy-person-card-helper { margin: 12px 0 18px; color: var(--ink-soft); font-size: .78rem; line-height: 1.65; }
     .subsidy-choice-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
     .subsidy-choice { position: relative; display: block; cursor: pointer; }
     .subsidy-choice input { position: absolute; width: 1px; height: 1px; opacity: 0; }
@@ -208,7 +219,7 @@
     .subsidy-result-person dt { color: var(--ink-soft); font-size: .72rem; }
     .subsidy-result-person dd { margin: 2px 0 0; color: var(--ink); font-family: "Hanken Grotesk", sans-serif; font-size: .9rem; font-weight: 700; }
     .subsidy-result-note { margin: 14px 0 0; color: var(--ink-soft); font-size: .74rem; line-height: 1.65; }
-    .subsidy-dialog-footer { display: flex; justify-content: flex-end; gap: 10px; border-top: 1px solid rgba(193, 200, 194, .66); margin-top: 24px; padding-top: 20px; }
+    .subsidy-dialog-footer { display: flex; flex: 0 0 auto; justify-content: flex-end; gap: 10px; border-top: 1px solid rgba(193, 200, 194, .66); margin-top: 24px; padding-top: 20px; }
     .subsidy-dialog-footer .button { width: auto; min-width: 112px; }
 
     .details-grid { display: grid; grid-template-columns: 1fr; gap: 24px; margin-bottom: 80px; }
@@ -344,7 +355,7 @@
     <section class="details-grid" aria-label="物件介紹、物件資訊、設備與費用資訊">
       <article class="info-card property-intro-card" id="property-intro">
         <h2><span class="material-symbols-outlined" aria-hidden="true">description</span>物件介紹</h2>
-        <p class="property-intro-lead">位於桃園市桃園區民生路與光華街周邊，鄰近桃園夜市、美廉社及學區，日常採買、外食與交通都便利，生活機能完善。屋內配備全新 HITACHI 變頻冷暖空調、Panasonic 變頻冰箱及 LG 變頻洗衣機，全室家電皆採用變頻節能設備，兼顧居住舒適與日常省電。水費、電費依帳單由租客自行負擔；不可抽菸、設神明廳及養寵物。</p>
+        <p class="property-intro-lead">位於桃園市桃園區民生路與光華街周邊，鄰近桃園夜市、美廉社及學區，日常採買、外食與交通都便利，生活機能完善。房間與陽台皆設有氣密窗，有助於降低外部噪音與灰塵，提升室內居住舒適度。屋內配備全新 HITACHI 變頻冷暖空調、Panasonic 變頻冰箱及 LG 變頻洗衣機，全室家電皆採用變頻節能設備，兼顧居住舒適與日常省電。</p>
       </article>
 
       <article class="info-card" id="environment">
@@ -389,17 +400,15 @@
           <p class="subsidy-note">第三級適用於家庭成員 1 人、成年未滿 40 歲、單身且沒有經濟或社會弱勢身分者；實際資格、核定金額及撥款時間仍以政府審核結果為準。</p>
           <a class="subsidy-official-link" href="https://pip.moi.gov.tw/Publicize/Info/B1020?y=115" target="_blank" rel="noopener noreferrer">查看 115 年官方申請規定 <span class="material-symbols-outlined" aria-hidden="true">open_in_new</span></a>
         </section>
-        <div class="subsidy-dialog" id="subsidy-dialog" role="dialog" aria-modal="true" aria-labelledby="subsidy-dialog-title" hidden>
+        <div class="subsidy-dialog" id="subsidy-dialog" role="dialog" aria-modal="true" aria-label="租補試算" hidden>
           <div class="subsidy-dialog-backdrop" data-subsidy-close></div>
           <section class="subsidy-dialog-panel">
             <header class="subsidy-dialog-header">
               <div>
                 <p class="subsidy-dialog-step" id="subsidy-dialog-step">第 1 步，共 2 步</p>
-                <h3 id="subsidy-dialog-title">租補試算</h3>
               </div>
               <button class="subsidy-dialog-close" id="subsidy-dialog-close" type="button" aria-label="關閉租補試算"><span class="material-symbols-outlined" aria-hidden="true">close</span></button>
             </header>
-            <div class="subsidy-dialog-progress" aria-hidden="true"><span id="subsidy-dialog-progress-bar"></span></div>
             <div class="subsidy-dialog-body">
               <section data-subsidy-step="count" aria-labelledby="subsidy-count-question">
                 <h4 class="subsidy-dialog-question" id="subsidy-count-question">這份租約有幾位承租人？</h4>
@@ -453,15 +462,15 @@
           <div class="amenity"><span class="material-symbols-outlined" aria-hidden="true">ac_unit</span>冷氣</div>
           <div class="amenity"><span class="material-symbols-outlined" aria-hidden="true">local_laundry_service</span>洗衣機</div>
           <div class="amenity"><span class="material-symbols-outlined" aria-hidden="true">kitchen</span>冰箱</div>
-          <div class="amenity"><span class="material-symbols-outlined" aria-hidden="true">bed</span>雙人床</div>
           <div class="amenity"><span class="material-symbols-outlined" aria-hidden="true">weekend</span>沙發</div>
           <div class="amenity"><span class="material-symbols-outlined" aria-hidden="true">kitchen</span>廚房設備</div>
           <div class="amenity"><span class="material-symbols-outlined" aria-hidden="true">water_heater</span>熱水器</div>
-          <div class="amenity"><span class="material-symbols-outlined" aria-hidden="true">bedroom_parent</span>寢具</div>
+          <div class="amenity"><span class="material-symbols-outlined" aria-hidden="true">bed</span>寢具</div>
           <div class="amenity"><span class="material-symbols-outlined" aria-hidden="true">dresser</span>衣櫃</div>
           <div class="amenity"><span class="material-symbols-outlined" aria-hidden="true">wifi</span>免費 Wi-Fi</div>
           <div class="amenity"><span class="material-symbols-outlined" aria-hidden="true">detector_smoke</span>煙霧偵測</div>
           <div class="amenity"><span class="material-symbols-outlined" aria-hidden="true">fire_extinguisher</span>滅火器</div>
+          <div class="amenity"><span class="material-symbols-outlined" aria-hidden="true">window</span>氣密窗</div>
         </div>
       </article>
 
@@ -723,7 +732,6 @@
     const subsidyDialog = document.getElementById("subsidy-dialog");
     const subsidyDialogClose = document.getElementById("subsidy-dialog-close");
     const subsidyDialogStep = document.getElementById("subsidy-dialog-step");
-    const subsidyDialogProgressBar = document.getElementById("subsidy-dialog-progress-bar");
     const subsidyDialogBack = document.getElementById("subsidy-dialog-back");
     const subsidyDialogNext = document.getElementById("subsidy-dialog-next");
     const subsidyDialogRestart = document.getElementById("subsidy-dialog-restart");
@@ -748,31 +756,39 @@
     const getTenantCount = () => getSelectedRadioValue("subsidy-tenant-count");
     const getRelationship = () => getSelectedRadioValue("subsidy-relation");
 
-    const renderPersonFields = (label, key, defaultMembers, includeRentShare = false) => `
-      <div class="subsidy-person-card" data-person-card="${key}">
-        <h4>${label}</h4>
-        ${includeRentShare ? `
+    const renderPersonFields = (label, key, defaultMembers, includeRentShare = false, mode = "individual") => {
+      const isFamily = mode === "family";
+      return `
+        <div class="subsidy-person-card" data-person-card="${key}">
+          <h4>${label}</h4>
+          ${includeRentShare ? `
+            <label class="subsidy-field">
+              <span>每月分攤租金</span>
+              <input type="number" min="0" step="100" value="${Math.round(monthlyRent / 2)}" data-rent-share="${key}" inputmode="numeric">
+            </label>
+          ` : ""}
           <label class="subsidy-field">
-            <span>每月分攤租金</span>
-            <input type="number" min="0" step="100" value="${Math.round(monthlyRent / 2)}" data-rent-share="${key}" inputmode="numeric">
+            <span>家庭成員人數</span>
+            <select data-person-members="${key}">
+              <option value="1"${defaultMembers === 1 ? " selected" : ""}>1 人</option>
+              <option value="2"${defaultMembers === 2 ? " selected" : ""}>2 人</option>
+              <option value="3"${defaultMembers >= 3 ? " selected" : ""}>3 人以上</option>
+            </select>
           </label>
-        ` : ""}
-        <label class="subsidy-field">
-          <span>家庭成員人數</span>
-          <select data-person-members="${key}">
-            <option value="1"${defaultMembers === 1 ? " selected" : ""}>1 人</option>
-            <option value="2"${defaultMembers === 2 ? " selected" : ""}>2 人</option>
-            <option value="3"${defaultMembers >= 3 ? " selected" : ""}>3 人以上</option>
-          </select>
-        </label>
-        <div class="subsidy-checkbox-grid">
-          <label class="subsidy-checkbox"><input type="checkbox" data-person-under40-single="${key}"><span>成年未滿 40 歲且單身</span></label>
-          <label class="subsidy-checkbox"><input type="checkbox" data-person-low-income="${key}"><span>具低收入戶身分</span></label>
-          <label class="subsidy-checkbox"><input type="checkbox" data-person-middle-low-income="${key}"><span>具中低收入戶身分</span></label>
-          <label class="subsidy-checkbox"><input type="checkbox" data-person-other-weak="${key}"><span>其他經濟或社會弱勢身分</span></label>
+          <div class="subsidy-checkbox-grid">
+            ${isFamily ? `
+              <label class="subsidy-checkbox"><input type="checkbox" data-person-low-income="${key}"><span>家庭成員中有低收入戶身分</span></label>
+              <label class="subsidy-checkbox"><input type="checkbox" data-person-middle-low-income="${key}"><span>家庭成員中有中低收入戶身分</span></label>
+            ` : `
+              <label class="subsidy-checkbox"><input type="checkbox" data-person-under40="${key}" checked><span>未滿 40 歲</span></label>
+              <label class="subsidy-checkbox"><input type="checkbox" data-person-low-income="${key}"><span>具低收入戶身分</span></label>
+              <label class="subsidy-checkbox"><input type="checkbox" data-person-middle-low-income="${key}"><span>具中低收入戶身分</span></label>
+              <label class="subsidy-checkbox"><input type="checkbox" data-person-other-weak="${key}"><span>具經濟或社會弱勢身分</span></label>
+            `}
+          </div>
         </div>
-      </div>
-    `;
+      `;
+    };
 
     const renderDetailsFields = () => {
       const tenantCount = getTenantCount();
@@ -821,7 +837,8 @@
       subsidyDetailsFields.innerHTML = `
         <div class="subsidy-question-block">
           <p class="subsidy-question-label">${tenantCount === "2" ? "請填寫這個家庭的條件" : "請填寫申請人的條件"}</p>
-          ${renderPersonFields(tenantCount === "2" ? "家庭申請人" : "申請人", "single", defaultMembers, false)}
+          ${renderPersonFields(tenantCount === "2" ? "家庭申請人" : "申請人", "single", defaultMembers, false, tenantCount === "2" ? "family" : "individual")}
+          ${tenantCount === "2" ? '<p class="subsidy-person-card-helper">其他經濟或社會弱勢身分可能影響補貼加碼；本試算目前只估算基本補貼。</p>' : ""}
         </div>
       `;
     };
@@ -831,10 +848,10 @@
       const members = Number(card.querySelector(`[data-person-members="${key}"]`).value);
       return {
         members,
-        under40Single: card.querySelector(`[data-person-under40-single="${key}"]`).checked,
-        lowIncome: card.querySelector(`[data-person-low-income="${key}"]`).checked,
-        middleLowIncome: card.querySelector(`[data-person-middle-low-income="${key}"]`).checked,
-        otherWeak: card.querySelector(`[data-person-other-weak="${key}"]`).checked
+        under40: card.querySelector(`[data-person-under40="${key}"]`)?.checked || false,
+        lowIncome: card.querySelector(`[data-person-low-income="${key}"]`)?.checked || false,
+        middleLowIncome: card.querySelector(`[data-person-middle-low-income="${key}"]`)?.checked || false,
+        otherWeak: card.querySelector(`[data-person-other-weak="${key}"]`)?.checked || false
       };
     };
 
@@ -842,8 +859,8 @@
       if ((details.members >= 2 && details.lowIncome) || (details.members >= 3 && details.middleLowIncome)) {
         return { ...subsidyTiers.first, key: "first", reason: "家庭成員人數與低收入戶／中低收入戶條件符合第一級判定。" };
       }
-      if (details.members === 1 && details.under40Single && !details.lowIncome && !details.middleLowIncome && !details.otherWeak) {
-        return { ...subsidyTiers.third, key: "third", reason: "家庭成員 1 人、成年未滿 40 歲、單身且沒有經濟或社會弱勢身分。" };
+      if (details.members === 1 && details.under40 && !details.lowIncome && !details.middleLowIncome && !details.otherWeak) {
+        return { ...subsidyTiers.third, key: "third", reason: "家庭成員 1 人、未滿 40 歲，且未具有經濟或社會弱勢身分。" };
       }
       return { ...subsidyTiers.second, key: "second", reason: "目前回答未符合第一級或第三級的條件，先以第二級基本額度估算。" };
     };
@@ -932,7 +949,6 @@
       subsidyFlowIndex = subsidyFlowSteps.indexOf(stepName);
       const isResult = stepName === "result";
       subsidyDialogStep.textContent = isResult ? "完成" : `第 ${subsidyFlowIndex + 1} 步，共 ${subsidyFlowSteps.length} 步`;
-      subsidyDialogProgressBar.style.width = `${((subsidyFlowIndex + 1) / subsidyFlowSteps.length) * 100}%`;
       subsidyDialogBack.hidden = isResult || subsidyFlowIndex <= 0;
       subsidyDialogNext.hidden = isResult;
       subsidyDialogRestart.hidden = !isResult;
