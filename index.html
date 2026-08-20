@@ -152,18 +152,64 @@
     .subsidy-kicker { margin: 0 0 4px; color: var(--primary); font-size: .75rem; font-weight: 800; letter-spacing: .08em; }
     .subsidy-heading h3 { margin: 0; color: var(--ink); font-size: 1.1rem; line-height: 1.35; }
     .subsidy-badge { flex: 0 0 auto; border: 1px solid rgba(1, 45, 29, .2); border-radius: 999px; background: var(--primary-fixed); padding: 5px 9px; color: var(--primary); font-size: .7rem; font-weight: 800; }
-    .subsidy-form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-    .subsidy-field { display: flex; flex-direction: column; gap: 7px; color: var(--ink-muted); font-size: .78rem; font-weight: 700; }
-    .subsidy-field select { width: 100%; min-height: 44px; border: 1px solid rgba(193, 200, 194, .8); border-radius: 8px; background: var(--background); padding: 10px 12px; color: var(--ink); font: inherit; font-weight: 600; }
-    .subsidy-result { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-top: 16px; }
-    .subsidy-result-item { min-width: 0; border-radius: 10px; background: var(--surface-low); padding: 12px; }
-    .subsidy-result-item.is-highlighted { background: var(--primary); }
-    .subsidy-result-item span { display: block; color: var(--ink-muted); font-size: .74rem; line-height: 1.4; }
-    .subsidy-result-item strong { display: block; margin-top: 4px; color: var(--ink); font-family: "Hanken Grotesk", sans-serif; font-size: 1.05rem; line-height: 1.2; }
-    .subsidy-result-item.is-highlighted span,
-    .subsidy-result-item.is-highlighted strong { color: #fbfdf9; }
+    .subsidy-default { display: flex; align-items: center; justify-content: space-between; gap: 20px; border-radius: 12px; background: var(--surface-low); padding: 18px 20px; }
+    .subsidy-default-label { display: block; color: var(--ink-muted); font-size: .76rem; font-weight: 700; }
+    .subsidy-default-amount { display: block; margin-top: 4px; color: var(--primary); font-family: "Hanken Grotesk", sans-serif; font-size: clamp(1.8rem, 4vw, 2.35rem); line-height: 1.1; letter-spacing: -.055em; }
+    .subsidy-default-caption { margin: 8px 0 0; color: var(--ink-soft); font-size: .74rem; line-height: 1.55; }
+    .subsidy-default-action { width: auto; min-width: 132px; flex: 0 0 auto; }
     .subsidy-note { margin: 12px 0 0; color: var(--ink-soft); font-size: .75rem; line-height: 1.7; }
     .subsidy-official-link { display: inline-flex; align-items: center; gap: 5px; margin-top: 12px; color: var(--primary); font-size: .78rem; font-weight: 800; text-underline-offset: 3px; }
+    .subsidy-dialog-open { overflow: hidden; }
+    .subsidy-dialog { position: fixed; z-index: 60; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(1, 20, 13, .58); padding: 20px; }
+    .subsidy-dialog-backdrop { position: absolute; inset: 0; }
+    .subsidy-dialog-panel { position: relative; z-index: 1; display: flex; width: min(560px, 100%); max-height: min(720px, calc(100vh - 40px)); flex-direction: column; overflow: auto; border: 1px solid rgba(193, 200, 194, .6); border-radius: 16px; background: var(--surface); padding: 28px; box-shadow: 0 28px 70px rgba(0, 0, 0, .22); }
+    .subsidy-dialog-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+    .subsidy-dialog-header h3 { margin: 0; color: var(--ink); font-size: 1.35rem; line-height: 1.25; letter-spacing: -.045em; }
+    .subsidy-dialog-step { margin: 0 0 4px; color: var(--primary); font-size: .72rem; font-weight: 800; letter-spacing: .08em; }
+    .subsidy-dialog-close { display: grid; width: 38px; height: 38px; flex: 0 0 auto; place-items: center; border: 1px solid rgba(193, 200, 194, .8); border-radius: 999px; background: transparent; color: var(--ink); cursor: pointer; }
+    .subsidy-dialog-close:hover { background: var(--surface-low); }
+    .subsidy-dialog-progress { height: 4px; margin: 20px 0 28px; overflow: hidden; border-radius: 999px; background: var(--surface-high); }
+    .subsidy-dialog-progress span { display: block; width: 50%; height: 100%; border-radius: inherit; background: var(--primary); transition: width .25s ease; }
+    .subsidy-dialog-body { min-height: 250px; }
+    .subsidy-dialog-question { margin: 0 0 20px; color: var(--ink); font-size: 1.05rem; font-weight: 800; line-height: 1.45; }
+    .subsidy-dialog-helper { margin: -10px 0 18px; color: var(--ink-soft); font-size: .78rem; line-height: 1.65; }
+    .subsidy-choice-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    .subsidy-choice { position: relative; display: block; cursor: pointer; }
+    .subsidy-choice input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+    .subsidy-choice-content { display: flex; min-height: 72px; flex-direction: column; justify-content: center; border: 1px solid rgba(193, 200, 194, .8); border-radius: 10px; background: var(--background); padding: 12px 14px; transition: border-color .2s ease, background .2s ease, box-shadow .2s ease; }
+    .subsidy-choice-content strong { color: var(--ink); font-size: .88rem; line-height: 1.35; }
+    .subsidy-choice-content small { margin-top: 3px; color: var(--ink-soft); font-size: .72rem; line-height: 1.45; }
+    .subsidy-choice input:checked + .subsidy-choice-content { border-color: var(--primary); background: var(--primary-fixed); box-shadow: 0 0 0 2px rgba(1, 45, 29, .08); }
+    .subsidy-choice input:focus-visible + .subsidy-choice-content { outline: 3px solid rgba(1, 45, 29, .3); outline-offset: 3px; }
+    .subsidy-field { display: flex; flex-direction: column; gap: 7px; color: var(--ink-muted); font-size: .78rem; font-weight: 700; }
+    .subsidy-field select, .subsidy-field input[type="number"] { width: 100%; min-height: 44px; border: 1px solid rgba(193, 200, 194, .8); border-radius: 8px; background: var(--background); padding: 10px 12px; color: var(--ink); font: inherit; font-weight: 600; }
+    .subsidy-question-block + .subsidy-question-block { border-top: 1px solid rgba(193, 200, 194, .66); margin-top: 22px; padding-top: 22px; }
+    .subsidy-question-label { margin: 0 0 12px; color: var(--ink); font-size: .84rem; font-weight: 800; }
+    .subsidy-checkbox-grid { display: grid; gap: 10px; }
+    .subsidy-checkbox { display: flex; align-items: flex-start; gap: 9px; color: var(--ink-muted); font-size: .78rem; font-weight: 600; line-height: 1.5; }
+    .subsidy-checkbox input { width: 17px; height: 17px; flex: 0 0 auto; margin: 1px 0 0; accent-color: var(--primary); }
+    .subsidy-person-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .subsidy-person-card { border: 1px solid rgba(193, 200, 194, .6); border-radius: 12px; background: var(--surface-low); padding: 14px; }
+    .subsidy-person-card h4 { margin: 0 0 14px; color: var(--primary); font-size: .9rem; }
+    .subsidy-person-card .subsidy-checkbox-grid { margin-top: 14px; }
+    .subsidy-error { margin: 12px 0 0; color: #a33b2f; font-size: .76rem; font-weight: 700; line-height: 1.5; }
+    .subsidy-result-summary { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-bottom: 18px; }
+    .subsidy-result-summary-item { border-radius: 10px; background: var(--surface-low); padding: 12px; }
+    .subsidy-result-summary-item.is-highlighted { background: var(--primary); }
+    .subsidy-result-summary-item span { display: block; color: var(--ink-muted); font-size: .72rem; }
+    .subsidy-result-summary-item strong { display: block; margin-top: 4px; color: var(--ink); font-family: "Hanken Grotesk", sans-serif; font-size: 1.05rem; }
+    .subsidy-result-summary-item.is-highlighted span, .subsidy-result-summary-item.is-highlighted strong { color: #fbfdf9; }
+    .subsidy-result-person-grid { display: grid; gap: 10px; }
+    .subsidy-result-person { border: 1px solid rgba(193, 200, 194, .6); border-radius: 10px; padding: 14px; }
+    .subsidy-result-person-header { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+    .subsidy-result-person-header strong { color: var(--primary); font-size: .9rem; }
+    .subsidy-result-person-header span { color: var(--ink-soft); font-size: .76rem; font-weight: 700; }
+    .subsidy-result-person dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin: 12px 0 0; }
+    .subsidy-result-person dt { color: var(--ink-soft); font-size: .72rem; }
+    .subsidy-result-person dd { margin: 2px 0 0; color: var(--ink); font-family: "Hanken Grotesk", sans-serif; font-size: .9rem; font-weight: 700; }
+    .subsidy-result-note { margin: 14px 0 0; color: var(--ink-soft); font-size: .74rem; line-height: 1.65; }
+    .subsidy-dialog-footer { display: flex; justify-content: flex-end; gap: 10px; border-top: 1px solid rgba(193, 200, 194, .66); margin-top: 24px; padding-top: 20px; }
+    .subsidy-dialog-footer .button { width: auto; min-width: 112px; }
 
     .details-grid { display: grid; grid-template-columns: 1fr; gap: 24px; margin-bottom: 80px; }
     .info-card { border: 1px solid rgba(193, 200, 194, .35); border-radius: 12px; background: var(--surface); padding: 32px; box-shadow: var(--shadow-soft); }
@@ -238,7 +284,12 @@
       #facilities.info-card,
       .property-intro-card { padding: 12px; }
       #environment .summary-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: none; gap: 8px; }
-      .subsidy-result { grid-template-columns: 1fr; }
+      .subsidy-default { align-items: stretch; flex-direction: column; gap: 16px; }
+      .subsidy-default-action { width: 100%; }
+      .subsidy-dialog { padding: 12px; }
+      .subsidy-dialog-panel { max-height: calc(100vh - 24px); padding: 22px 18px; }
+      .subsidy-dialog-footer { flex-direction: column-reverse; }
+      .subsidy-dialog-footer .button { width: 100%; }
       .neighborhood-section { margin-bottom: 52px; }
       .neighborhood-heading { align-items: flex-start; flex-direction: column; gap: 12px; }
       #neighborhood-map { height: 420px; }
@@ -250,7 +301,7 @@
       .thumbnail-grid { grid-template-columns: repeat(2, 1fr); }
       .amenity-grid { grid-template-columns: 1fr; }
       .summary-grid { grid-template-columns: 1fr; }
-      .subsidy-form { grid-template-columns: 1fr; }
+      .subsidy-choice-grid, .subsidy-person-grid, .subsidy-result-summary { grid-template-columns: 1fr; }
       .lightbox { padding: 16px; }
       .lightbox-content { gap: 12px; }
       .lightbox-figure { padding: 0 48px; }
@@ -310,7 +361,7 @@
         </div>
         <div class="divider section-divider" aria-hidden="true"></div>
         <dl class="summary-grid fee-summary" id="fees" aria-label="費用與備註資訊">
-          <div class="summary-item"><dt><small>租金</small></dt><dd><strong>NT$ 25,000</strong></dd></div>
+          <div class="summary-item"><dt><small>租金</small></dt><dd><strong>NT$ 20,000</strong></dd></div>
           <div class="summary-item"><dt><small>押金</small></dt><dd><strong>一個月租金</strong></dd></div>
           <div class="summary-item"><dt><small>水費</small></dt><dd><strong>依自來水帳單</strong></dd></div>
           <div class="summary-item"><dt><small>電費</small></dt><dd><strong>依台電帳單</strong></dd></div>
@@ -319,54 +370,81 @@
           <div class="summary-item"><dt><small>最短租期</small></dt><dd><strong>12 個月</strong></dd></div>
           <div class="summary-item"><dt><small>租屋補助</small></dt><dd><strong>可申請</strong></dd></div>
         </dl>
-        <section class="subsidy-calculator" id="subsidy-calculator" data-rent="25000" aria-labelledby="subsidy-calculator-title">
+        <section class="subsidy-calculator" id="subsidy-calculator" data-rent="20000" aria-labelledby="subsidy-calculator-title">
           <div class="subsidy-heading">
             <div>
               <p class="subsidy-kicker">115 年桃園市租屋補助</p>
-              <h3 id="subsidy-calculator-title">補貼後租金試算</h3>
+              <h3 id="subsidy-calculator-title">補貼後每月租金</h3>
             </div>
-            <span class="subsidy-badge">即時計算</span>
+            <span class="subsidy-badge">預設第三級</span>
           </div>
-          <div class="subsidy-form">
-            <label class="subsidy-field" for="subsidy-base-level">
-              <span>補貼級別</span>
-              <select id="subsidy-base-level">
-                <option value="5000">第一級｜每月上限 NT$5,000</option>
-                <option value="4000" selected>第二級｜每月上限 NT$4,000</option>
-                <option value="2400">第三級｜每月上限 NT$2,400</option>
-              </select>
-            </label>
-            <label class="subsidy-field" for="subsidy-multiplier">
-              <span>加碼身分（擇一）</span>
-              <select id="subsidy-multiplier">
-                <option value="1" selected>無加碼｜1 倍</option>
-                <option value="1.2">單身青年｜1.2 倍</option>
-                <option value="1.3">新婚家庭（114 年底前結婚）｜1.3 倍</option>
-                <option value="1.5">新婚家庭（115 年起結婚）｜1.5 倍</option>
-                <option value="1.4">育有未成年子女 1 人／經濟弱勢｜1.4 倍</option>
-                <option value="1.6">育有未成年子女 2 人｜1.6 倍</option>
-                <option value="1.8">育有未成年子女 3 人｜1.8 倍</option>
-                <option value="2">社會弱勢 1 人｜2 倍</option>
-              </select>
-            </label>
+          <div class="subsidy-default">
+            <div>
+              <span class="subsidy-default-label">預設補貼後每月租金</span>
+              <strong class="subsidy-default-amount" id="subsidy-default-remaining-rent">NT$ 17,600</strong>
+              <p class="subsidy-default-caption">以第三級基本補貼 NT$2,400 試算，未計入其他加碼。</p>
+            </div>
+            <button class="button button-primary subsidy-default-action" id="subsidy-open" type="button">租補試算 <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></button>
           </div>
-          <div class="subsidy-result" aria-label="租金補貼試算結果">
-            <div class="subsidy-result-item">
-              <span>每月補貼</span>
-              <strong id="subsidy-amount">NT$ 4,000</strong>
-            </div>
-            <div class="subsidy-result-item is-highlighted">
-              <span>補貼後每月租金</span>
-              <strong id="subsidy-remaining-rent">NT$ 21,000</strong>
-            </div>
-            <div class="subsidy-result-item">
-              <span>每年減少租金</span>
-              <strong id="subsidy-annual-savings">NT$ 48,000</strong>
-            </div>
-          </div>
-          <p class="subsidy-note">以本物件月租金 NT$25,000 試算，未含水費與電費；實際資格、核定金額及撥款時間仍以政府審核結果為準。同時符合多種加碼身分時，依規定擇高計算。</p>
+          <p class="subsidy-note">第三級適用於家庭成員 1 人、成年未滿 40 歲、單身且沒有經濟或社會弱勢身分者；實際資格、核定金額及撥款時間仍以政府審核結果為準。</p>
           <a class="subsidy-official-link" href="https://pip.moi.gov.tw/Publicize/Info/B1020?y=115" target="_blank" rel="noopener noreferrer">查看 115 年官方申請規定 <span class="material-symbols-outlined" aria-hidden="true">open_in_new</span></a>
         </section>
+        <div class="subsidy-dialog" id="subsidy-dialog" role="dialog" aria-modal="true" aria-labelledby="subsidy-dialog-title" hidden>
+          <div class="subsidy-dialog-backdrop" data-subsidy-close></div>
+          <section class="subsidy-dialog-panel">
+            <header class="subsidy-dialog-header">
+              <div>
+                <p class="subsidy-dialog-step" id="subsidy-dialog-step">第 1 步，共 2 步</p>
+                <h3 id="subsidy-dialog-title">租補試算</h3>
+              </div>
+              <button class="subsidy-dialog-close" id="subsidy-dialog-close" type="button" aria-label="關閉租補試算"><span class="material-symbols-outlined" aria-hidden="true">close</span></button>
+            </header>
+            <div class="subsidy-dialog-progress" aria-hidden="true"><span id="subsidy-dialog-progress-bar"></span></div>
+            <div class="subsidy-dialog-body">
+              <section data-subsidy-step="count" aria-labelledby="subsidy-count-question">
+                <h4 class="subsidy-dialog-question" id="subsidy-count-question">這份租約有幾位承租人？</h4>
+                <div class="subsidy-choice-grid">
+                  <label class="subsidy-choice">
+                    <input type="radio" name="subsidy-tenant-count" value="1" checked>
+                    <span class="subsidy-choice-content"><strong>1 位承租人</strong><small>先以個人資格試算</small></span>
+                  </label>
+                  <label class="subsidy-choice">
+                    <input type="radio" name="subsidy-tenant-count" value="2">
+                    <span class="subsidy-choice-content"><strong>2 位承租人</strong><small>可進一步判斷家庭或朋友合租</small></span>
+                  </label>
+                </div>
+              </section>
+              <section data-subsidy-step="relation" aria-labelledby="subsidy-relation-question" hidden>
+                <h4 class="subsidy-dialog-question" id="subsidy-relation-question">兩位承租人是什麼關係？</h4>
+                <p class="subsidy-dialog-helper">朋友或室友不是同一家庭，會分別判斷兩人的補貼級別。</p>
+                <div class="subsidy-choice-grid">
+                  <label class="subsidy-choice">
+                    <input type="radio" name="subsidy-relation" value="family">
+                    <span class="subsidy-choice-content"><strong>夫妻／同一家庭</strong><small>同一家庭以一份申請計算</small></span>
+                  </label>
+                  <label class="subsidy-choice">
+                    <input type="radio" name="subsidy-relation" value="friends">
+                    <span class="subsidy-choice-content"><strong>朋友／室友</strong><small>兩人可各自申請，需列為承租人</small></span>
+                  </label>
+                </div>
+                <p class="subsidy-error" id="subsidy-relation-error" hidden>請先選擇兩位承租人的關係。</p>
+              </section>
+              <section data-subsidy-step="details" aria-labelledby="subsidy-details-question" hidden>
+                <h4 class="subsidy-dialog-question" id="subsidy-details-question">請回答幾個條件，確認對應級別</h4>
+                <div id="subsidy-details-fields"></div>
+              </section>
+              <section data-subsidy-step="result" aria-labelledby="subsidy-result-question" hidden>
+                <h4 class="subsidy-dialog-question" id="subsidy-result-question">你的租補試算結果</h4>
+                <div id="subsidy-dialog-result" aria-live="polite"></div>
+              </section>
+            </div>
+            <footer class="subsidy-dialog-footer">
+              <button class="button button-outline" id="subsidy-dialog-back" type="button">上一步</button>
+              <button class="button button-primary" id="subsidy-dialog-next" type="button">下一步</button>
+              <button class="button button-primary" id="subsidy-dialog-restart" type="button" hidden>重新試算</button>
+            </footer>
+          </section>
+        </div>
       </article>
 
       <article class="info-card" id="facilities">
@@ -640,29 +718,308 @@
     updateActiveNavigationLink();
 
     const subsidyCalculator = document.getElementById("subsidy-calculator");
-    const subsidyBaseLevel = document.getElementById("subsidy-base-level");
-    const subsidyMultiplier = document.getElementById("subsidy-multiplier");
-    const subsidyAmount = document.getElementById("subsidy-amount");
-    const subsidyRemainingRent = document.getElementById("subsidy-remaining-rent");
-    const subsidyAnnualSavings = document.getElementById("subsidy-annual-savings");
-    const formatTaiwanCurrency = (amount) => `NT$ ${amount.toLocaleString("zh-TW")}`;
+    const subsidyOpenButton = document.getElementById("subsidy-open");
+    const subsidyDefaultRemainingRent = document.getElementById("subsidy-default-remaining-rent");
+    const subsidyDialog = document.getElementById("subsidy-dialog");
+    const subsidyDialogClose = document.getElementById("subsidy-dialog-close");
+    const subsidyDialogStep = document.getElementById("subsidy-dialog-step");
+    const subsidyDialogProgressBar = document.getElementById("subsidy-dialog-progress-bar");
+    const subsidyDialogBack = document.getElementById("subsidy-dialog-back");
+    const subsidyDialogNext = document.getElementById("subsidy-dialog-next");
+    const subsidyDialogRestart = document.getElementById("subsidy-dialog-restart");
+    const subsidyDetailsFields = document.getElementById("subsidy-details-fields");
+    const subsidyDialogResult = document.getElementById("subsidy-dialog-result");
+    const subsidyRelationError = document.getElementById("subsidy-relation-error");
+    const formatTaiwanCurrency = (amount) => `NT$ ${Math.round(amount).toLocaleString("zh-TW")}`;
+    const monthlyRent = Number(subsidyCalculator.dataset.rent);
+    const subsidyTiers = {
+      first: { label: "第一級", amount: 5000 },
+      second: { label: "第二級", amount: 4000 },
+      third: { label: "第三級", amount: 2400 }
+    };
+    const subsidyDefaultAmount = Math.min(monthlyRent, subsidyTiers.third.amount);
+    let subsidyFlowSteps = ["count", "details"];
+    let subsidyFlowIndex = 0;
+    let subsidyPreviouslyFocusedElement = null;
 
-    const updateSubsidyEstimate = () => {
-      const monthlyRent = Number(subsidyCalculator.dataset.rent);
-      const baseAmount = Number(subsidyBaseLevel.value);
-      const multiplier = Number(subsidyMultiplier.value);
-      const estimatedSubsidy = Math.min(monthlyRent, Math.round(baseAmount * multiplier));
-      const remainingRent = Math.max(0, monthlyRent - estimatedSubsidy);
+    subsidyDefaultRemainingRent.textContent = formatTaiwanCurrency(monthlyRent - subsidyDefaultAmount);
 
-      subsidyAmount.textContent = formatTaiwanCurrency(estimatedSubsidy);
-      subsidyRemainingRent.textContent = formatTaiwanCurrency(remainingRent);
-      subsidyAnnualSavings.textContent = formatTaiwanCurrency(estimatedSubsidy * 12);
+    const getSelectedRadioValue = (name) => document.querySelector(`input[name="${name}"]:checked`)?.value || "";
+    const getTenantCount = () => getSelectedRadioValue("subsidy-tenant-count");
+    const getRelationship = () => getSelectedRadioValue("subsidy-relation");
+
+    const renderPersonFields = (label, key, defaultMembers, includeRentShare = false) => `
+      <div class="subsidy-person-card" data-person-card="${key}">
+        <h4>${label}</h4>
+        ${includeRentShare ? `
+          <label class="subsidy-field">
+            <span>每月分攤租金</span>
+            <input type="number" min="0" step="100" value="${Math.round(monthlyRent / 2)}" data-rent-share="${key}" inputmode="numeric">
+          </label>
+        ` : ""}
+        <label class="subsidy-field">
+          <span>家庭成員人數</span>
+          <select data-person-members="${key}">
+            <option value="1"${defaultMembers === 1 ? " selected" : ""}>1 人</option>
+            <option value="2"${defaultMembers === 2 ? " selected" : ""}>2 人</option>
+            <option value="3"${defaultMembers >= 3 ? " selected" : ""}>3 人以上</option>
+          </select>
+        </label>
+        <div class="subsidy-checkbox-grid">
+          <label class="subsidy-checkbox"><input type="checkbox" data-person-under40-single="${key}"><span>成年未滿 40 歲且單身</span></label>
+          <label class="subsidy-checkbox"><input type="checkbox" data-person-low-income="${key}"><span>具低收入戶身分</span></label>
+          <label class="subsidy-checkbox"><input type="checkbox" data-person-middle-low-income="${key}"><span>具中低收入戶身分</span></label>
+          <label class="subsidy-checkbox"><input type="checkbox" data-person-other-weak="${key}"><span>其他經濟或社會弱勢身分</span></label>
+        </div>
+      </div>
+    `;
+
+    const renderDetailsFields = () => {
+      const tenantCount = getTenantCount();
+      const relationship = getRelationship();
+      const isFriends = tenantCount === "2" && relationship === "friends";
+      const defaultMembers = tenantCount === "2" && relationship === "family" ? 2 : 1;
+
+      if (isFriends) {
+        subsidyDetailsFields.innerHTML = `
+          <div class="subsidy-question-block">
+            <p class="subsidy-question-label">兩人的租金如何分攤？</p>
+            <div class="subsidy-choice-grid">
+              <label class="subsidy-choice">
+                <input type="radio" name="subsidy-rent-split" value="equal" checked>
+                <span class="subsidy-choice-content"><strong>平均分攤</strong><small>${formatTaiwanCurrency(monthlyRent / 2)}／人</small></span>
+              </label>
+              <label class="subsidy-choice">
+                <input type="radio" name="subsidy-rent-split" value="custom">
+                <span class="subsidy-choice-content"><strong>自訂分攤</strong><small>依租約約定填寫</small></span>
+              </label>
+            </div>
+            <div class="subsidy-person-grid" id="subsidy-custom-rent-fields" hidden>
+              <label class="subsidy-field"><span>承租人 A 租金</span><input type="number" min="0" step="100" value="${Math.round(monthlyRent / 2)}" data-rent-share="a" inputmode="numeric"></label>
+              <label class="subsidy-field"><span>承租人 B 租金</span><input type="number" min="0" step="100" value="${Math.round(monthlyRent / 2)}" data-rent-share="b" inputmode="numeric"></label>
+            </div>
+            <p class="subsidy-error" id="subsidy-rent-error" hidden>兩人的租金分攤加總必須等於總租金 ${formatTaiwanCurrency(monthlyRent)}。</p>
+          </div>
+          <div class="subsidy-question-block">
+            <p class="subsidy-question-label">請分別填寫兩位承租人的條件</p>
+            <div class="subsidy-person-grid">
+              ${renderPersonFields("承租人 A", "a", 1, false)}
+              ${renderPersonFields("承租人 B", "b", 1, false)}
+            </div>
+          </div>
+        `;
+        const customRentFields = document.getElementById("subsidy-custom-rent-fields");
+        subsidyDetailsFields.querySelectorAll('input[name="subsidy-rent-split"]').forEach((field) => {
+          field.addEventListener("change", () => {
+            const isCustom = getSelectedRadioValue("subsidy-rent-split") === "custom";
+            customRentFields.hidden = !isCustom;
+          });
+        });
+        return;
+      }
+
+      subsidyDetailsFields.innerHTML = `
+        <div class="subsidy-question-block">
+          <p class="subsidy-question-label">${tenantCount === "2" ? "請填寫這個家庭的條件" : "請填寫申請人的條件"}</p>
+          ${renderPersonFields(tenantCount === "2" ? "家庭申請人" : "申請人", "single", defaultMembers, false)}
+        </div>
+      `;
     };
 
-    [subsidyBaseLevel, subsidyMultiplier].forEach((field) => {
-      field.addEventListener("change", updateSubsidyEstimate);
+    const readPersonDetails = (key) => {
+      const card = subsidyDetailsFields.querySelector(`[data-person-card="${key}"]`);
+      const members = Number(card.querySelector(`[data-person-members="${key}"]`).value);
+      return {
+        members,
+        under40Single: card.querySelector(`[data-person-under40-single="${key}"]`).checked,
+        lowIncome: card.querySelector(`[data-person-low-income="${key}"]`).checked,
+        middleLowIncome: card.querySelector(`[data-person-middle-low-income="${key}"]`).checked,
+        otherWeak: card.querySelector(`[data-person-other-weak="${key}"]`).checked
+      };
+    };
+
+    const determineSubsidyLevel = (details) => {
+      if ((details.members >= 2 && details.lowIncome) || (details.members >= 3 && details.middleLowIncome)) {
+        return { ...subsidyTiers.first, key: "first", reason: "家庭成員人數與低收入戶／中低收入戶條件符合第一級判定。" };
+      }
+      if (details.members === 1 && details.under40Single && !details.lowIncome && !details.middleLowIncome && !details.otherWeak) {
+        return { ...subsidyTiers.third, key: "third", reason: "家庭成員 1 人、成年未滿 40 歲、單身且沒有經濟或社會弱勢身分。" };
+      }
+      return { ...subsidyTiers.second, key: "second", reason: "目前回答未符合第一級或第三級的條件，先以第二級基本額度估算。" };
+    };
+
+    const collectSubsidyDetails = () => {
+      const tenantCount = getTenantCount();
+      const relationship = getRelationship();
+      const isFriends = tenantCount === "2" && relationship === "friends";
+      const errorElement = document.getElementById("subsidy-rent-error");
+
+      if (isFriends) {
+        const splitMode = getSelectedRadioValue("subsidy-rent-split");
+        const equalShare = monthlyRent / 2;
+        const rentA = splitMode === "custom" ? Number(subsidyDetailsFields.querySelector('[data-rent-share="a"]').value) : equalShare;
+        const rentB = splitMode === "custom" ? Number(subsidyDetailsFields.querySelector('[data-rent-share="b"]').value) : equalShare;
+        const isValidRent = rentA >= 0 && rentB >= 0 && rentA + rentB === monthlyRent;
+
+        if (!isValidRent) {
+          errorElement.hidden = false;
+          return null;
+        }
+        errorElement.hidden = true;
+        const personA = readPersonDetails("a");
+        const personB = readPersonDetails("b");
+        return {
+          people: [
+            { label: "承租人 A", rent: rentA, level: determineSubsidyLevel(personA) },
+            { label: "承租人 B", rent: rentB, level: determineSubsidyLevel(personB) }
+          ],
+          isFriends: true
+        };
+      }
+
+      const person = readPersonDetails("single");
+      return {
+        people: [{ label: tenantCount === "2" ? "家庭合計" : "申請人", rent: monthlyRent, level: determineSubsidyLevel(person) }],
+        isFriends: false
+      };
+    };
+
+    const renderSubsidyResult = (result) => {
+      const people = result.people.map((person) => ({
+        ...person,
+        subsidy: Math.min(person.rent, person.level.amount),
+        remainingRent: Math.max(0, person.rent - person.level.amount)
+      }));
+      const totalSubsidy = people.reduce((sum, person) => sum + person.subsidy, 0);
+      const totalRemainingRent = people.reduce((sum, person) => sum + person.remainingRent, 0);
+      const levelSummary = result.isFriends ? "兩人分別判定" : people[0].level.label;
+
+      subsidyDialogResult.innerHTML = `
+        <div class="subsidy-result-summary">
+          <div class="subsidy-result-summary-item">
+            <span>判定結果</span>
+            <strong>${levelSummary}</strong>
+          </div>
+          <div class="subsidy-result-summary-item is-highlighted">
+            <span>補貼後合計月租</span>
+            <strong>${formatTaiwanCurrency(totalRemainingRent)}</strong>
+          </div>
+        </div>
+        <div class="subsidy-result-person-grid">
+          ${people.map((person) => `
+            <article class="subsidy-result-person">
+              <div class="subsidy-result-person-header">
+                <strong>${person.label}｜${person.level.label}</strong>
+                <span>基本補貼上限 ${formatTaiwanCurrency(person.level.amount)}</span>
+              </div>
+              <dl>
+                <div><dt>每月分攤租金</dt><dd>${formatTaiwanCurrency(person.rent)}</dd></div>
+                <div><dt>預估每月補貼</dt><dd>${formatTaiwanCurrency(person.subsidy)}</dd></div>
+                <div><dt>補貼後租金</dt><dd>${formatTaiwanCurrency(person.remainingRent)}</dd></div>
+                <div><dt>判定說明</dt><dd>${person.level.reason}</dd></div>
+              </dl>
+            </article>
+          `).join("")}
+        </div>
+        <p class="subsidy-result-note">${result.isFriends ? "兩人合計" : "預估"}每月補貼 ${formatTaiwanCurrency(totalSubsidy)}。以上為各級基本補貼上限試算，未計入其他加碼；實際資格與核定金額仍以政府審查結果為準。</p>
+      `;
+    };
+
+    const setSubsidyStep = (stepName) => {
+      document.querySelectorAll("#subsidy-dialog [data-subsidy-step]").forEach((step) => {
+        step.hidden = step.dataset.subsidyStep !== stepName;
+      });
+      subsidyFlowIndex = subsidyFlowSteps.indexOf(stepName);
+      const isResult = stepName === "result";
+      subsidyDialogStep.textContent = isResult ? "完成" : `第 ${subsidyFlowIndex + 1} 步，共 ${subsidyFlowSteps.length} 步`;
+      subsidyDialogProgressBar.style.width = `${((subsidyFlowIndex + 1) / subsidyFlowSteps.length) * 100}%`;
+      subsidyDialogBack.hidden = isResult || subsidyFlowIndex <= 0;
+      subsidyDialogNext.hidden = isResult;
+      subsidyDialogRestart.hidden = !isResult;
+      subsidyDialogNext.textContent = subsidyFlowIndex === subsidyFlowSteps.length - 1 ? "查看結果" : "下一步";
+    };
+
+    const resetSubsidyFlow = () => {
+      const defaultTenantCount = document.querySelector('input[name="subsidy-tenant-count"][value="1"]');
+      document.querySelectorAll('input[name="subsidy-relation"]').forEach((field) => { field.checked = false; });
+      defaultTenantCount.checked = true;
+      subsidyDetailsFields.innerHTML = "";
+      subsidyDialogResult.innerHTML = "";
+      subsidyRelationError.hidden = true;
+      subsidyFlowSteps = ["count", "details"];
+      setSubsidyStep("count");
+    };
+
+    const openSubsidyDialog = () => {
+      subsidyPreviouslyFocusedElement = document.activeElement;
+      resetSubsidyFlow();
+      subsidyDialog.hidden = false;
+      document.body.classList.add("subsidy-dialog-open");
+      subsidyDialogClose.focus();
+    };
+
+    const closeSubsidyDialog = () => {
+      subsidyDialog.hidden = true;
+      document.body.classList.remove("subsidy-dialog-open");
+      subsidyPreviouslyFocusedElement?.focus();
+    };
+
+    subsidyOpenButton.addEventListener("click", openSubsidyDialog);
+    subsidyDialogClose.addEventListener("click", closeSubsidyDialog);
+    subsidyDialog.querySelectorAll("[data-subsidy-close]").forEach((element) => element.addEventListener("click", closeSubsidyDialog));
+    subsidyDialogRestart.addEventListener("click", resetSubsidyFlow);
+
+    subsidyDialogNext.addEventListener("click", () => {
+      const activeStep = subsidyFlowSteps[subsidyFlowIndex];
+
+      if (activeStep === "count") {
+        if (getTenantCount() === "2") {
+          subsidyFlowSteps = ["count", "relation", "details"];
+          setSubsidyStep("relation");
+        } else {
+          subsidyFlowSteps = ["count", "details"];
+          renderDetailsFields();
+          setSubsidyStep("details");
+        }
+        return;
+      }
+
+      if (activeStep === "relation") {
+        if (!getRelationship()) {
+          subsidyRelationError.hidden = false;
+          return;
+        }
+        subsidyRelationError.hidden = true;
+        renderDetailsFields();
+        setSubsidyStep("details");
+        return;
+      }
+
+      if (activeStep === "details") {
+        const result = collectSubsidyDetails();
+        if (!result) return;
+        renderSubsidyResult(result);
+        subsidyFlowSteps = [...subsidyFlowSteps, "result"];
+        setSubsidyStep("result");
+      }
     });
-    updateSubsidyEstimate();
+
+    subsidyDialogBack.addEventListener("click", () => {
+      const previousStep = subsidyFlowSteps[subsidyFlowIndex - 1];
+      if (previousStep === "count") {
+        setSubsidyStep("count");
+        return;
+      }
+      if (previousStep === "relation") {
+        setSubsidyStep("relation");
+      }
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && !subsidyDialog.hidden) closeSubsidyDialog();
+    });
+
+    setSubsidyStep("count");
 
   </script>
 
