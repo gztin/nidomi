@@ -256,13 +256,13 @@
     .neighborhood-point h3 { margin: 0 0 5px; color: var(--ink); font-size: .98rem; line-height: 1.35; }
     .neighborhood-point p { margin: 0; color: var(--ink-soft); font-size: .82rem; line-height: 1.65; }
 
-    .site-footer { display: flex; align-items: flex-start; justify-content: space-between; gap: 32px; border-top: 1px solid #000; background: #000; color: #fff; padding: 48px max(20px, calc((100vw - 1280px) / 2)) 52px; }
-    .footer-copy { display: flex; flex-direction: column; gap: 12px; }
-    .site-footer .brand, .footer-copy p, .footer-links { color: #fff; }
-    .footer-copy p { max-width: 380px; margin: 0; font-size: .76rem; }
-    .footer-links { display: flex; gap: 24px; font-size: .76rem; }
+    .site-footer { display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 12px; border-top: 1px solid #000; background: #000; color: #fff; padding: 48px max(20px, calc((100vw - 1280px) / 2)) 52px; text-align: center; }
+    .footer-copy { display: flex; align-items: center; flex-direction: column; gap: 12px; }
+    .site-footer .brand, .footer-links { color: #fff; }
+    .footer-links { display: flex; align-items: center; justify-content: center; gap: 12px; font-size: .76rem; }
     .footer-links a { color: inherit; text-decoration: none; }
     .footer-links a:hover { color: #fff; text-decoration: underline; }
+    .footer-copyright { color: inherit; }
 
     @media (max-width: 900px) {
       .amenity-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -305,8 +305,8 @@
       .neighborhood-heading { align-items: flex-start; flex-direction: column; gap: 12px; }
       #neighborhood-map { height: 420px; }
       .neighborhood-copy { padding: 24px; }
-      .site-footer { flex-direction: column; padding: 36px 16px 42px; }
-      .footer-links { flex-wrap: wrap; gap: 12px 20px; }
+      .site-footer { padding: 36px 16px 42px; }
+      .footer-links { gap: 12px; }
     }
     @media (max-width: 480px) {
       .thumbnail-grid { grid-template-columns: repeat(2, 1fr); }
@@ -323,35 +323,241 @@
       html { scroll-behavior: auto; }
       *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
     }
+
+    /* Editorial rental theme */
+    :root {
+      --background: #0b0b0a;
+      --surface: #151513;
+      --surface-low: #1b1b18;
+      --surface-high: #292923;
+      --ink: #f2eee7;
+      --ink-muted: #b8b1a6;
+      --ink-soft: #888177;
+      --primary: #ebe2d4;
+      --primary-container: #d4c5b3;
+      --primary-fixed: #c7d2b9;
+      --outline: #6c665c;
+      --outline-soft: #3b3933;
+      --shadow-card: 0 24px 70px rgba(0, 0, 0, .3);
+      --shadow-soft: 0 14px 36px rgba(0, 0, 0, .16);
+      --radius: 2px;
+    }
+
+    html { background: var(--background); }
+    body { background: var(--background); color: var(--ink); }
+    #property-intro, #environment, #fees, #facilities, #neighborhood, #booking { scroll-margin-top: 112px; }
+    .page-width { width: min(1240px, calc(100% - 48px)); }
+    .site-header {
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      border-bottom: 0;
+      background: linear-gradient(to bottom, rgba(8, 8, 7, .72), transparent);
+      backdrop-filter: none;
+    }
+    .nav-bar { min-height: 88px; }
+    .brand { color: var(--ink); font-size: 1.55rem; letter-spacing: -.065em; }
+    .nav-meta { display: flex; align-items: center; gap: 24px; }
+    .nav-meta-location { color: rgba(242, 238, 231, .68); font-size: .72rem; letter-spacing: .08em; }
+    .nav-cta { display: inline-flex; align-items: center; gap: 7px; border: 1px solid rgba(242, 238, 231, .36); border-radius: 999px; padding: 9px 13px; color: var(--ink); font-size: .74rem; font-weight: 700; text-decoration: none; transition: background .2s ease, border-color .2s ease; }
+    .nav-cta:hover { border-color: var(--ink); background: rgba(242, 238, 231, .12); }
+    .nav-cta .material-symbols-outlined { font-size: 16px; }
+    main { padding: 0 0 120px; }
+
+    .hero-layout { position: relative; min-height: min(86vh, 860px); margin: 0; overflow: hidden; background: #151514; }
+    .hero-layout::after { position: absolute; z-index: 1; inset: 0; background: linear-gradient(90deg, rgba(8, 8, 7, .7), rgba(8, 8, 7, .08) 60%), linear-gradient(0deg, rgba(8, 8, 7, .88), transparent 58%); content: ""; pointer-events: none; }
+    .hero-layout .visual-column { position: absolute; z-index: 0; inset: 0; display: block; aspect-ratio: auto; }
+    .hero-slideshow { position: absolute; z-index: 0; inset: 0; overflow: hidden; background: #151514; }
+    .hero-slide { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.045) translate3d(0, 0, 0); filter: saturate(.82) contrast(1.04); transition: opacity 1.2s ease, transform 6.2s cubic-bezier(.2, .65, .2, 1); }
+    .hero-slide.is-active { opacity: 1; transform: scale(1) translate3d(0, 0, 0); }
+    .hero-layout .main-photo { position: absolute; inset: 0; width: 100%; height: 100%; border-radius: 0; background: transparent; cursor: zoom-in; }
+    .hero-layout .main-photo img { width: 100%; height: 100%; object-fit: cover; opacity: 0; }
+    .hero-layout .photo-overlay { z-index: 2; padding: 26px max(24px, calc((100vw - 1240px) / 2)); }
+    .hero-layout .verified-pill { border: 1px solid rgba(242, 238, 231, .36); background: rgba(8, 8, 7, .28); color: var(--ink); backdrop-filter: blur(10px); }
+    .hero-layout .gallery-count { color: rgba(242, 238, 231, .76); }
+    .hero-layout .photo-view-hint { background: rgba(8, 8, 7, .54); }
+    .hero-layout .thumbnail-grid { position: absolute; z-index: 3; right: max(24px, calc((100vw - 1240px) / 2)); bottom: 96px; display: grid; width: 190px; height: 84px; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: 1fr; gap: 8px; }
+    .hero-layout .thumbnail { border: 1px solid rgba(242, 238, 231, .4); border-radius: 2px; }
+    .hero-layout .thumbnail.is-active { box-shadow: 0 0 0 2px var(--primary); }
+    .hero-layout .thumbnail.has-more::after { background: rgba(8, 8, 7, .56); }
+    .hero-copy { position: absolute; z-index: 2; top: 0; right: 0; bottom: 72px; left: 0; display: flex; align-items: flex-start; justify-content: flex-end; flex-direction: column; margin-inline: auto; padding: 180px 0 58px; pointer-events: none; }
+    .hero-copy > * { pointer-events: none; }
+    .hero-copy h1 { max-width: 720px; margin: 0; color: var(--ink); font-family: "Noto Serif TC", "Noto Serif CJK TC", "Songti TC", serif; font-size: clamp(3.8rem, 8vw, 7.4rem); font-weight: 400; line-height: .98; letter-spacing: -.08em; }
+    .hero-location { margin: 20px 0 0; color: rgba(242, 238, 231, .78); font-size: .94rem; letter-spacing: .04em; }
+    .hero-anchor-nav { position: absolute; z-index: 4; right: 0; bottom: 0; left: 0; display: flex; align-items: center; gap: 30px; height: 72px; margin-inline: auto; overflow-x: auto; border-top: 1px solid rgba(242, 238, 231, .25); color: rgba(242, 238, 231, .62); scrollbar-width: none; }
+    .hero-anchor-nav::-webkit-scrollbar { display: none; }
+    .hero-anchor-nav a { flex: 0 0 auto; padding: 25px 0 21px; color: inherit; font-size: .72rem; font-weight: 700; letter-spacing: .12em; text-decoration: none; transition: color .2s ease, border-color .2s ease; }
+    .hero-anchor-nav a:hover, .hero-anchor-nav a[aria-current="page"] { color: var(--ink); }
+    .hero-anchor-nav a[aria-current="page"] { border-bottom: 1px solid var(--ink); }
+
+    .listing-layout { grid-template-columns: minmax(0, 1fr) 360px; gap: 64px; align-items: start; margin-top: 0; }
+    .overview-column { position: sticky; top: 32px; align-self: start; padding-top: 80px; }
+    .overview-card { gap: 23px; border: 1px solid rgba(242, 238, 231, .18); border-radius: 2px; background: var(--surface); padding: 28px; box-shadow: var(--shadow-card); }
+    .overview-heading { align-items: flex-start; }
+    .overview-eyebrow { margin: 0 0 7px; color: var(--ink-soft); font-size: .68rem; font-weight: 800; letter-spacing: .16em; }
+    .overview-heading h2 { margin: 0; color: var(--ink); font-family: "Noto Serif TC", "Noto Serif CJK TC", "Songti TC", serif; font-size: 1.8rem; font-weight: 400; letter-spacing: -.06em; }
+    .overview-mark { color: var(--ink-soft); font-family: "Hanken Grotesk", sans-serif; font-size: .78rem; letter-spacing: .12em; }
+    .overview-price { display: flex; flex-direction: column; gap: 4px; border-top: 1px solid rgba(242, 238, 231, .16); border-bottom: 1px solid rgba(242, 238, 231, .16); padding: 19px 0; }
+    .overview-price span, .overview-price small { color: var(--ink-soft); font-size: .74rem; }
+    .overview-price strong { color: var(--ink); font-family: "Hanken Grotesk", sans-serif; font-size: 2rem; font-weight: 700; letter-spacing: -.05em; }
+    .overview-price small { line-height: 1.55; }
+    .divider { background: rgba(242, 238, 231, .16); }
+    .renovation-summary { align-items: flex-start; margin-top: 0; }
+    .renovation-credit { color: var(--ink-soft); font-size: .76rem; }
+    .renovation-link { background: transparent; padding: 0 0 5px; color: var(--ink); border-bottom: 1px solid rgba(242, 238, 231, .45); border-radius: 0; }
+    .renovation-link:hover { background: transparent; color: var(--primary-container); }
+    .intermediary-card { gap: 18px; }
+    .intermediary-profile { grid-template-columns: 58px minmax(0, 1fr); gap: 13px; }
+    .intermediary-avatar { width: 58px; height: 58px; border: 1px solid rgba(242, 238, 231, .2); }
+    .intermediary-name { color: var(--ink); font-family: "Noto Serif TC", "Noto Serif CJK TC", "Songti TC", serif; font-size: 1.05rem; font-weight: 400; }
+    .intermediary-name span, .intermediary-company, .intermediary-note { color: var(--ink-soft); }
+    .intermediary-actions { gap: 9px; }
+    .intermediary-action { min-height: 52px; border-radius: 2px; font-size: .9rem; }
+    .intermediary-action-phone { background: var(--primary); color: #171613; }
+    .intermediary-action-phone:hover { background: var(--primary-container); }
+    .intermediary-action-line { border: 1px solid rgba(242, 238, 231, .32); background: transparent; color: var(--ink); }
+    .intermediary-action-line:hover { background: rgba(242, 238, 231, .08); }
+
+    .details-grid { display: block; margin-bottom: 0; }
+    .info-card { border: 0; border-top: 1px solid rgba(242, 238, 231, .16); border-radius: 0; background: transparent; padding: 88px 0; box-shadow: none; }
+    #environment.info-card, #facilities.info-card, .property-intro-card { padding: 88px 0; }
+    .info-card h2 { display: flex; align-items: flex-start; flex-direction: column; gap: 7px; margin: 0 0 34px; color: var(--ink); font-family: "Noto Serif TC", "Noto Serif CJK TC", "Songti TC", serif; font-size: 2rem; font-weight: 400; line-height: 1.25; letter-spacing: -.06em; }
+    .info-card h2 .material-symbols-outlined { display: none; }
+    .info-card h2::after { color: var(--ink-soft); content: "DETAILS"; font-family: "Manrope", sans-serif; font-size: .64rem; font-weight: 800; letter-spacing: .18em; line-height: 1; order: -1; }
+    .info-card h3 { color: var(--ink); }
+    .property-intro-card { display: grid; grid-template-columns: minmax(180px, .55fr) minmax(0, 1.45fr); gap: 48px; }
+    .property-intro-card h2 { margin: 0; }
+    .property-intro-lead { margin: 0; color: var(--ink-muted); font-family: "Manrope", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif; font-size: clamp(1.25rem, 1.45vw, 1.32rem); line-height: 1.8; }
+    #environment .summary-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-rows: none; gap: 0 28px; }
+    .summary-item { min-height: 74px; border-top: 1px solid rgba(242, 238, 231, .16); padding: 15px 0 13px; }
+    .summary-item small { color: var(--ink-soft); font-size: .7rem; letter-spacing: .06em; }
+    .summary-item strong { color: var(--ink); font-size: .86rem; }
+    .section-divider { margin: 34px 0; }
+    .subsidy-calculator { border-top-color: rgba(242, 238, 231, .16); }
+    .subsidy-kicker, .subsidy-official-link { color: var(--primary); }
+    .subsidy-heading h3, .subsidy-question-label, .subsidy-dialog-question, .subsidy-result-person dd { color: var(--ink); }
+    .subsidy-badge { border-color: rgba(242, 238, 231, .2); background: var(--primary-fixed); color: #1b2118; }
+    .subsidy-default { background: var(--surface-low); }
+    .subsidy-default-label, .subsidy-default-caption, .subsidy-note, .subsidy-dialog-helper, .subsidy-person-card-helper, .subsidy-result-note, .subsidy-field, .subsidy-checkbox { color: var(--ink-soft); }
+    .subsidy-default-amount { color: var(--ink); }
+    .subsidy-dialog { background: rgba(0, 0, 0, .76); }
+    .subsidy-dialog-panel { border-color: rgba(242, 238, 231, .18); background: var(--surface); }
+    .subsidy-choice-content, .subsidy-field select, .subsidy-field input[type="number"] { border-color: rgba(242, 238, 231, .2); background: var(--background); color: var(--ink); }
+    .subsidy-choice-content strong { color: var(--ink); }
+    .subsidy-choice-content small { color: var(--ink-soft); }
+    .subsidy-choice input:checked + .subsidy-choice-content { border-color: var(--primary); background: rgba(199, 210, 185, .18); }
+    .subsidy-question-block + .subsidy-question-block, .subsidy-dialog-footer { border-top-color: rgba(242, 238, 231, .16); }
+    .amenity-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+    .amenity { min-height: 54px; border-color: rgba(242, 238, 231, .18); border-radius: 2px; background: var(--surface); color: var(--ink-muted); }
+    .amenity .material-symbols-outlined { color: var(--primary); }
+    .neighborhood-section { margin-bottom: 0; border-top: 1px solid rgba(242, 238, 231, .16); padding: 88px 0 0; }
+    .neighborhood-heading h2 { color: var(--ink); font-family: "Noto Serif TC", "Noto Serif CJK TC", "Songti TC", serif; font-size: 2rem; font-weight: 400; letter-spacing: -.06em; }
+    .neighborhood-kicker, .neighborhood-copy-label { color: var(--ink-soft); }
+    .neighborhood-heading p:not(.neighborhood-kicker), .neighborhood-point p { color: var(--ink-soft); }
+    .neighborhood-meta { border-color: rgba(242, 238, 231, .2); color: var(--ink-muted); }
+    .neighborhood-meta .material-symbols-outlined, .neighborhood-point-icon { color: var(--primary); }
+    .neighborhood-layout { gap: 32px; }
+    .neighborhood-map-shell, .neighborhood-copy { border-color: rgba(242, 238, 231, .18); border-radius: 2px; background: var(--surface); box-shadow: var(--shadow-soft); }
+    .neighborhood-point { border-top-color: rgba(242, 238, 231, .16); }
+    .neighborhood-point h3 { color: var(--ink); font-family: "Noto Serif TC", "Noto Serif CJK TC", "Songti TC", serif; font-size: 1.1rem; font-weight: 400; }
+    .neighborhood-point-icon { background: rgba(199, 210, 185, .15); }
+    .site-footer { border-top-color: rgba(242, 238, 231, .18); background: #050505; }
+    .site-footer .brand { color: var(--ink); }
+    .button-primary { border-color: var(--primary); background: var(--primary); color: #171613; box-shadow: none; }
+    .button-primary:hover { background: var(--primary-container); }
+    .button-outline { border-color: var(--outline); color: var(--ink); }
+    .button-outline:hover { border-color: var(--ink); background: rgba(242, 238, 231, .08); }
+    :focus-visible { outline-color: rgba(235, 226, 212, .62); }
+
+    @media (max-width: 900px) {
+      .listing-layout { grid-template-columns: minmax(0, 1fr) 310px; gap: 32px; }
+      .amenity-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      #environment .summary-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 720px) {
+      .page-width { width: min(100% - 32px, 620px); }
+      .nav-bar { min-height: 72px; }
+      .nav-meta-location { display: none; }
+      main { padding-bottom: 72px; }
+      .hero-layout { min-height: 760px; }
+      .hero-layout .visual-column { display: block; }
+      .hero-layout .thumbnail-grid { right: 16px; bottom: 96px; width: 150px; height: 64px; }
+      .hero-copy { bottom: 72px; padding: 150px 0 56px; }
+      .hero-copy h1 { font-size: clamp(3.25rem, 15vw, 5rem); }
+      .hero-location { max-width: 300px; font-size: .84rem; line-height: 1.6; }
+      .hero-anchor-nav { right: 16px; left: 16px; width: auto; margin: 0; gap: 22px; }
+      .hero-anchor-nav a { font-size: .66rem; letter-spacing: .08em; }
+      .listing-layout { grid-template-columns: 1fr; gap: 0; }
+      .overview-column { position: relative; top: auto; order: -1; z-index: 5; margin-top: -8px; padding-top: 0; }
+      .overview-card { padding: 24px; }
+      .overview-heading h2 { font-size: 1.6rem; }
+      .property-intro-card { display: grid; grid-template-columns: 1fr; gap: 20px; }
+      .info-card, #environment.info-card, #facilities.info-card, .property-intro-card { padding: 64px 0; }
+      .info-card h2 { margin-bottom: 26px; font-size: 1.7rem; }
+      .property-intro-lead { font-size: 1.12rem; line-height: 1.85; }
+      .amenity-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .neighborhood-section { padding-top: 64px; }
+      .neighborhood-heading { align-items: flex-start; }
+      .neighborhood-layout { grid-template-columns: 1fr; }
+      #neighborhood-map { height: 360px; }
+      .neighborhood-copy { padding: 24px; }
+    }
+    @media (max-width: 480px) {
+      .nav-cta { padding: 8px 11px; font-size: .68rem; }
+      .hero-layout { min-height: 720px; }
+      .hero-copy { padding-bottom: 50px; }
+      .hero-layout .thumbnail-grid { width: 132px; }
+      .overview-card { padding: 20px; }
+      .amenity-grid, #environment .summary-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+      .amenity { min-height: 50px; padding: 9px 10px; font-size: .74rem; }
+      .amenity .material-symbols-outlined { font-size: 17px; }
+    }
   </style>
 </head>
 <body>
   <header class="site-header">
     <nav class="page-width nav-bar" aria-label="主要導覽">
       <a class="brand" href="#top">nidomi</a>
-      <div class="nav-links">
-        <a href="#property-intro">物件介紹</a>
-        <a href="#environment">物件資訊</a>
-        <a href="#facilities">設備</a>
-        <a href="#neighborhood">生活圈</a>
+      <div class="nav-meta">
+        <span class="nav-meta-location">桃園・民生好室</span>
+        <a class="nav-cta" href="#booking">預約看房 <span class="material-symbols-outlined" aria-hidden="true">arrow_downward</span></a>
       </div>
     </nav>
   </header>
 
-  <main id="top" class="page-width">
-    <div class="listing-layout">
-      <div class="listing-main">
-        <section class="hero-layout" aria-labelledby="property-title">
-          <div class="visual-column">
-            <button class="main-photo" id="main-photo-button" type="button" aria-label="查看第 1 張房源照片">
-              <img id="main-photo-image" src="img/display/01.webp" alt="民生好室房源照片 01" loading="eager">
-              <span class="photo-view-hint"><span class="material-symbols-outlined" aria-hidden="true">zoom_in</span>查看相簿</span>
-              <span class="photo-overlay"><span class="verified-pill"><span class="material-symbols-outlined" aria-hidden="true">verified</span> 已驗證房源</span><span class="gallery-count" id="gallery-count">1 / 19 張</span></span>
-            </button>
-            <div class="thumbnail-grid" id="thumbnail-grid" aria-label="房源照片縮圖"></div>
-          </div>
-        </section>
+  <main id="top">
+    <section class="hero-layout" aria-labelledby="property-title">
+      <div class="visual-column">
+        <div class="hero-slideshow" aria-hidden="true">
+          <img class="hero-slide is-active" data-gallery-index="0" src="img/display/01.webp" alt="" loading="eager">
+          <img class="hero-slide" data-gallery-index="5" src="img/display/06.webp" alt="" loading="lazy">
+          <img class="hero-slide" data-gallery-index="9" src="img/display/10.webp" alt="" loading="lazy">
+          <img class="hero-slide" data-gallery-index="13" src="img/display/14.webp" alt="" loading="lazy">
+          <img class="hero-slide" data-gallery-index="18" src="img/display/19.webp" alt="" loading="lazy">
+        </div>
+        <button class="main-photo" id="main-photo-button" type="button" aria-label="查看第 1 張房源照片">
+          <img id="main-photo-image" src="img/display/01.webp" alt="民生好室房源照片 01" loading="eager">
+          <span class="photo-view-hint"><span class="material-symbols-outlined" aria-hidden="true">zoom_in</span>查看相簿</span>
+          <span class="photo-overlay"><span class="verified-pill"><span class="material-symbols-outlined" aria-hidden="true">verified</span> 已驗證房源</span><span class="gallery-count" id="gallery-count">1 / 19 張</span></span>
+        </button>
+        <div class="thumbnail-grid" id="thumbnail-grid" aria-label="房源照片縮圖"></div>
+      </div>
+      <div class="hero-copy page-width">
+        <h1 id="property-title">民生好室</h1>
+        <p class="hero-location">桃園・桃園區 ─ 2 房 2 廳 1 衛的整層住家</p>
+      </div>
+      <nav class="hero-anchor-nav page-width nav-links" aria-label="房源內容導覽">
+        <a href="#property-intro">介紹</a>
+        <a href="#environment">規格</a>
+        <a href="#facilities">設備</a>
+        <a href="#neighborhood">生活圈</a>
+        <a href="#fees">費用</a>
+      </nav>
+    </section>
 
+    <div class="page-width listing-layout">
+      <div class="listing-main">
     <section class="details-grid" aria-label="物件介紹、物件資訊、設備與費用資訊">
       <article class="info-card property-intro-card" id="property-intro">
         <h2><span class="material-symbols-outlined" aria-hidden="true">description</span>物件介紹</h2>
@@ -370,7 +576,6 @@
           <div class="summary-item"><small>養寵物</small><strong>不可</strong></div>
           <div class="summary-item"><small>禁止抽煙</small><strong>禁止</strong></div>
         </div>
-        <div class="divider section-divider" aria-hidden="true"></div>
         <dl class="summary-grid fee-summary" id="fees" aria-label="費用與備註資訊">
           <div class="summary-item"><dt><small>租金</small></dt><dd><strong>NT$ 20,000</strong></dd></div>
           <div class="summary-item"><dt><small>押金</small></dt><dd><strong>一個月租金</strong></dd></div>
@@ -387,7 +592,6 @@
               <p class="subsidy-kicker">115 年桃園市租屋補助</p>
               <h3 id="subsidy-calculator-title">補貼後每月租金</h3>
             </div>
-            <span class="subsidy-badge">預設第三級</span>
           </div>
           <div class="subsidy-default">
             <div>
@@ -510,14 +714,21 @@
 
       <aside class="overview-column" aria-label="房源摘要">
         <div class="overview-card">
-          <div>
-            <div class="overview-heading">
-              <h1 id="property-title">民生好室</h1>
+          <div class="overview-heading">
+            <div>
+              <p class="overview-eyebrow">BOOK A VIEWING</p>
+              <h2>預約看房</h2>
             </div>
-            <div class="renovation-summary">
-              <p class="renovation-credit">監修：日角設計</p>
-              <a class="renovation-link" href="renovation.html">查看翻修歷程<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
-            </div>
+            <span class="overview-mark" aria-hidden="true">01</span>
+          </div>
+          <div class="overview-price">
+            <span>每月租金</span>
+            <strong>NT$ 20,000</strong>
+            <small>押金一個月租金・網路已含租金</small>
+          </div>
+          <div class="renovation-summary">
+            <p class="renovation-credit">監修：日角設計</p>
+            <a class="renovation-link" href="renovation.html">查看翻修歷程<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
           </div>
           <div class="divider" aria-hidden="true"></div>
           <section class="intermediary-card" id="booking" aria-labelledby="intermediary-title">
@@ -592,16 +803,23 @@
     const lightboxPrevious = document.getElementById("lightbox-previous");
     const lightboxNext = document.getElementById("lightbox-next");
     const visibleThumbnailIndexes = [1, 2];
+    let heroSlides = [];
+    let heroSlideshowIndexes = [];
+    let heroSlidePosition = 0;
     let activeGalleryIndex = 0;
     let previouslyFocusedElement = null;
 
     const getGalleryPosition = (index) => (index + galleryImages.length) % galleryImages.length;
 
-    const setGalleryImage = (index) => {
+    const setGalleryImage = (index, { syncHero = true } = {}) => {
       activeGalleryIndex = getGalleryPosition(index);
       const image = galleryImages[activeGalleryIndex];
       const positionLabel = `${activeGalleryIndex + 1} / ${galleryImages.length}`;
 
+      if (syncHero && heroSlides.length > 0) {
+        heroSlides[heroSlidePosition].src = image.src;
+        heroSlideshowIndexes[heroSlidePosition] = activeGalleryIndex;
+      }
       mainPhotoImage.src = image.src;
       mainPhotoImage.alt = image.alt;
       mainPhotoButton.setAttribute("aria-label", `查看第 ${activeGalleryIndex + 1} 張房源照片`);
@@ -645,6 +863,23 @@
       }
       thumbnailGrid.append(thumbnail);
     });
+
+    heroSlides = Array.from(document.querySelectorAll(".hero-slide"));
+    heroSlideshowIndexes = heroSlides.map((slide) => Number(slide.dataset.galleryIndex));
+    const setHeroSlide = (position) => {
+      if (heroSlides.length === 0) return;
+
+      heroSlidePosition = (position + heroSlides.length) % heroSlides.length;
+      heroSlides.forEach((slide, index) => slide.classList.toggle("is-active", index === heroSlidePosition));
+      setGalleryImage(heroSlideshowIndexes[heroSlidePosition], { syncHero: false });
+    };
+
+    if (heroSlides.length > 1 && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      window.setInterval(() => {
+        if (!lightbox.hidden) return;
+        setHeroSlide(heroSlidePosition + 1);
+      }, 6200);
+    }
 
     const openLightbox = () => {
       previouslyFocusedElement = document.activeElement;
@@ -1040,8 +1275,8 @@
   </script>
 
   <footer class="site-footer">
-    <div class="footer-copy"><a class="brand" href="#top">nidomi</a><p>讓房源資訊與約看流程更透明。</p></div>
-    <nav class="footer-links" aria-label="頁尾導覽"><a href="#fees">服務條款</a><a href="#facilities">隱私權政策</a></nav>
+    <div class="footer-copy"><a class="brand" href="#top">nidomi</a></div>
+    <nav class="footer-links" aria-label="頁尾導覽"><span class="footer-copyright">@copyright by gztin</span><a href="privacy.html">隱私權政策</a></nav>
   </footer>
 </body>
 </html>
