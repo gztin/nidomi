@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Immich Backup｜個人照片與影片備份</title>
+<meta name="description" content="Immich Backup 將個人 Immich 照片與影片原檔備份到本人 Google Drive，說明用途、授權範圍及隱私權政策。">
+<style>:root{color-scheme:dark;--bg:#0b0b0a;--panel:#151513;--ink:#f2eee7;--muted:#b8b1a6;--line:#393730}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:1rem/1.85 system-ui,-apple-system,"PingFang TC","Microsoft JhengHei",sans-serif}a{color:var(--ink);text-underline-offset:.25em}a:focus-visible{outline:2px solid #e4ca91;outline-offset:5px}header,main,footer{width:min(850px,calc(100% - 40px));margin:auto}header{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;padding:26px 0;border-bottom:1px solid var(--line)}.brand{font-weight:700;text-decoration:none;font-size:1.15rem}nav{display:flex;gap:24px;font-size:.95rem}main{padding:58px 0 76px}h1{font-size:clamp(2rem,6vw,3.2rem);line-height:1.25;letter-spacing:-.035em;margin:0 0 20px}h2{font-size:1.25rem;line-height:1.5;margin:0 0 12px}p{margin:0 0 16px;color:var(--muted)}.intro{font-size:1.15rem;max-width:650px}.meta{font-size:.9rem}.sections{margin-top:40px;border-top:1px solid var(--line)}section{padding:28px 0 16px;border-bottom:1px solid var(--line)}ul{padding-left:1.3em;color:var(--muted)}li+li{margin-top:8px}footer{padding:26px 0 40px;border-top:1px solid var(--line);color:var(--muted);font-size:.9rem}code{overflow-wrap:anywhere}strong{color:var(--ink)}@media(max-width:500px){main{padding-top:38px}nav{gap:16px}header{align-items:flex-start}}</style>
+</head>
+<body>
+<header><a class="brand" href="./index.html">Immich Backup</a><nav aria-label="主要導覽"><a href="./index.html">應用程式說明</a><a href="./privacy.html">隱私權政策</a></nav></header>
+<main><h1>Immich Backup</h1>
+<p class="intro">將個人 Immich 圖庫中的照片與影片原檔，備份到本人授權的 Google Drive。</p>
+<p>這是由 gztin 維護、在個人電腦執行的備份工具。此網站提供應用程式與隱私權說明，不是照片上傳入口，也不是 Immich 或 Google 的官方網站。</p>
+<div class="sections">
+<section><h2>備份如何運作</h2><p>工具透過 rclone 將本機 Immich 的照片與影片複製到 Google Drive 專用資料夾。完成設定後，每小時檢查新增或變更的檔案；電腦需保持開機、登入及連網。已備份且內容未變的檔案會略過。</p><p>備份不包含 Immich 資料庫、相簿分類、人臉資訊、縮圖或轉檔。它是媒體原檔副本，不能單獨還原完整的 Immich 系統。</p></section>
+<section><h2>Google Drive 授權</h2><p>使用 Google OAuth 取得 <code>drive.file</code> 權限，僅存取透過本應用程式建立或獲准使用的特定 Drive 檔案。這項權限允許查看、建立、編輯與刪除這些檔案；目前備份流程只複製與更新，不會因本機刪除檔案而刪除雲端副本。</p><p>工具不會要求或儲存 Google 密碼。授權資料保存在執行備份的個人電腦，讓後續備份能持續連線。</p></section>
+<section><h2>資料由你管理</h2><p>照片與影片從本機傳送至你授權的 Google Drive。這個公開說明網站不接收照片、授權憑證或圖庫內容，也不提供公開照片分享功能。</p><p>資料存取、儲存、保留及撤銷方式，請閱讀<a href="./privacy.html">隱私權政策</a>。可隨時前往 <a href="https://myaccount.google.com/connections">Google 帳戶連線設定</a>撤銷應用程式存取權。</p></section>
+<section><h2>維護與聯絡</h2><p>本工具供維護者個人備份使用，不提供公眾註冊服務。關於工具或資料處理的問題，可透過 <a href="https://github.com/gztin/nidomi/issues">GitHub 問題回報</a>聯絡維護者。公開回報時請勿附上照片、密碼、授權憑證或其他私人資料。</p></section></div></main>
+<footer>Immich Backup · 個人備份工具 · 維護者 <a href="https://github.com/gztin">gztin</a></footer>
+</body>
+</html>
