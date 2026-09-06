@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>隱私權政策｜Immich Backup</title>
+<meta name="description" content="Immich Backup 的資料存取、使用、儲存、分享、保留與刪除方式，以及 Google Drive 授權撤銷說明。">
+<style>:root{color-scheme:dark;--bg:#0b0b0a;--panel:#151513;--ink:#f2eee7;--muted:#b8b1a6;--line:#393730}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:1rem/1.85 system-ui,-apple-system,"PingFang TC","Microsoft JhengHei",sans-serif}a{color:var(--ink);text-underline-offset:.25em}a:focus-visible{outline:2px solid #e4ca91;outline-offset:5px}header,main,footer{width:min(850px,calc(100% - 40px));margin:auto}header{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;padding:26px 0;border-bottom:1px solid var(--line)}.brand{font-weight:700;text-decoration:none;font-size:1.15rem}nav{display:flex;gap:24px;font-size:.95rem}main{padding:58px 0 76px}h1{font-size:clamp(2rem,6vw,3.2rem);line-height:1.25;letter-spacing:-.035em;margin:0 0 20px}h2{font-size:1.25rem;line-height:1.5;margin:0 0 12px}p{margin:0 0 16px;color:var(--muted)}.intro{font-size:1.15rem;max-width:650px}.meta{font-size:.9rem}.sections{margin-top:40px;border-top:1px solid var(--line)}section{padding:28px 0 16px;border-bottom:1px solid var(--line)}ul{padding-left:1.3em;color:var(--muted)}li+li{margin-top:8px}footer{padding:26px 0 40px;border-top:1px solid var(--line);color:var(--muted);font-size:.9rem}code{overflow-wrap:anywhere}strong{color:var(--ink)}@media(max-width:500px){main{padding-top:38px}nav{gap:16px}header{align-items:flex-start}}</style>
+</head>
+<body>
+<header><a class="brand" href="./index.html">Immich Backup</a><nav aria-label="主要導覽"><a href="./index.html">應用程式說明</a><a href="./privacy.html">隱私權政策</a></nav></header>
+<main><h1>隱私權政策</h1><p class="meta">Immich Backup · 生效及最後更新日期：2026 年 9 月 6 日</p><p class="intro">本政策適用於由 gztin 維護的 Immich Backup 個人備份工具及這兩個說明頁面。</p>
+<div class="sections">
+<section><h2>一、存取哪些資料</h2><p>備份工具讀取使用者本機 Immich 圖庫中的照片與影片原檔，以及執行備份所需的路徑、檔名、大小、修改時間和校驗碼。為判斷哪些檔案需要上傳，工具會讀取本應用程式可存取的 Google Drive 資料夾與檔案中繼資料。</p><p>Google OAuth 提供的存取權杖與更新權杖用於連線與後續自動備份。工具不會要求或儲存 Google 密碼，不備份 Immich 資料庫、相簿分類或人臉辨識資料。</p></section>
+<section><h2>二、如何使用 Google 使用者資料</h2><p>上述資料只用於將照片與影片備份至使用者授權的 Google Drive、比對備份完整性、避免不必要的重複傳輸，以及記錄或排查備份錯誤。</p><p>本工具採用 <code>https://www.googleapis.com/auth/drive.file</code> 範圍，只能存取透過本應用程式建立或獲准使用的特定檔案。雖然此範圍包含刪除能力，目前備份流程不會刪除本機照片或雲端備份；同一路徑內容變更時會更新雲端副本。</p><p>不將 Google 使用者資料用於廣告、販售、個人化行銷，或開發、改善、訓練通用人工智慧或機器學習模型。</p></section>
+<section><h2>三、資料傳送與第三方</h2><p>照片與影片透過 HTTPS，從執行工具的個人電腦傳送至使用者授權的 Google Drive；Google 依其服務條款與隱私權政策提供儲存及授權服務。rclone 在本機執行，是資料傳輸工具，備份流程不會將照片上傳至 rclone 開發者的伺服器。</p><p>本工具沒有另外設置集中收集照片的伺服器，不將 Google 使用者資料分享給廣告商、資料仲介或其他無關第三方。Google Drive 檔案的後續分享，由使用者自行管理。</p><p>本工具使用從 Google API 取得的資訊，以及將這些資訊傳送至任何其他應用程式時，均遵守 <a href="https://developers.google.com/terms/api-services-user-data-policy">Google API 服務使用者資料政策</a>，包括 Limited Use（有限使用）要求。</p></section>
+<section><h2>四、儲存與保護</h2><p>原檔保留在使用者本機，備份副本保存在使用者的 Google Drive。OAuth 憑證與權杖保存在本機設定檔，並設定為僅檔案擁有者可讀寫。請妥善保護電腦與 Google 帳戶，勿公開這些設定檔。</p><p>備份紀錄保存在本機，可能包含檔案路徑、傳輸狀態、時間與錯誤訊息；工具保留最近約 168 份執行紀錄。公開說明網站不儲存這些紀錄、照片或授權資料。</p></section>
+<section><h2>五、保留、刪除與撤銷</h2><p>雲端備份持續保留，直到使用者自行在 Google Drive 刪除；移除本機照片不會自動移除其雲端副本。使用者可自行管理 Drive 垃圾桶及儲存空間。</p><p>可前往 <a href="https://myaccount.google.com/connections">Google 帳戶連線設定</a>，撤銷 Immich Backup 的存取權。撤銷後，工具將無法繼續以該授權存取 Google Drive，但不會自動刪除已存在的備份。要完全停止備份，可停用本機排程，並刪除本機授權設定與執行紀錄；原照片與雲端副本需另外處理。</p></section>
+<section><h2>六、此說明網站</h2><p>這兩個頁面由 GitHub Pages 託管，不包含登入、上傳表單、分析追蹤程式、外部字型或本網站自行建立的 Cookie。GitHub 在提供網站服務時，可能依其 <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">隱私權聲明</a>處理 IP 位址等技術資料。點擊 Google 或 GitHub 外部連結後，適用各服務的政策。</p><p>本政策不取代 nidomi 房源網站的隱私權政策；兩者的功能與資料處理用途不同。</p></section>
+<section><h2>七、聯絡與更新</h2><p>維護者：<a href="https://github.com/gztin">gztin</a>。可透過 <a href="https://github.com/gztin/nidomi/issues">GitHub 問題回報</a>提出隱私權或資料處理問題。請勿在公開回報中提供照片、密碼、權杖或其他私人資料。</p><p>若工具的資料處理方式變更，本頁會更新政策內容與日期。</p></section></div></main>
+<footer>Immich Backup · 個人備份工具 · 維護者 <a href="https://github.com/gztin">gztin</a></footer>
+</body>
+</html>
