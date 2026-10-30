@@ -159,6 +159,9 @@
     .intermediary-action-phone:hover { background: var(--primary-container); }
     .intermediary-action-line { background: #42c463; }
     .intermediary-note { margin: 0; color: var(--ink-soft); font-size: .76rem; line-height: 1.6; text-align: center; }
+    .intermediary-qr { display: grid; justify-items: center; gap: 8px; margin: 0; text-align: center; }
+    .intermediary-qr img { display: block; width: 156px; height: auto; border-radius: 10px; }
+    .intermediary-qr figcaption { color: var(--ink-soft); font-size: .76rem; line-height: 1.5; }
     .static-note { margin: -10px 0 0; color: var(--ink-soft); font-size: .76rem; text-align: center; }
     .subsidy-calculator { border-top: 1px solid rgba(193, 200, 194, .66); margin-top: 28px; padding-top: 28px; }
     .subsidy-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 20px; }
@@ -747,9 +750,15 @@
             </div>
             <div class="intermediary-actions" aria-label="聯絡仲介">
               <a class="intermediary-action intermediary-action-phone" href="tel:+886934133481"><span class="material-symbols-outlined" aria-hidden="true">call</span>0934-133-481</a>
-              <a class="intermediary-action intermediary-action-line" href="https://line.me/ti/p/V4kbKfqg8l" target="_blank" rel="noopener noreferrer"><span class="material-symbols-outlined" aria-hidden="true">chat</span>LINE 聯絡</a>
+              <a class="intermediary-action intermediary-action-line" href="https://lin.ee/zVw14QJ" target="_blank" rel="noopener noreferrer"><span class="material-symbols-outlined" aria-hidden="true">chat</span>LINE 聯絡</a>
             </div>
             <p class="intermediary-note">歡迎來電或加入 LINE 預約看房。</p>
+            <figure class="intermediary-qr">
+              <a href="https://lin.ee/zVw14QJ" target="_blank" rel="noopener noreferrer" aria-label="開啟郭陽凱的 LINE">
+                <img src="line.jpg" alt="郭陽凱的 LINE QR Code" loading="lazy" width="378" height="380">
+              </a>
+              <figcaption>掃描 QR Code 加入 LINE</figcaption>
+            </figure>
           </section>
         </div>
       </aside>
